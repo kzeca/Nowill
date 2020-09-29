@@ -6,9 +6,13 @@ registerForm.addEventListener('submit', (e) => {
 
     const email = registerForm['SignUpEmail'].value;
     const password = registerForm['SignUpPassword'].value;
-    console.log(email, password);
-
-    auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        console.log(cred.user);
-    });
+    const confirm = registerForm['ConfirmPassword'].value;
+    const cbAgree = registerForm['cbAgree'];
+    if(cbAgree.checked){
+        if(password == confirm){
+            auth.createUserWithEmailAndPassword(email, password).then(cred => {
+                console.log(cred.user);
+            });
+        }else alert("As senhas não coincidem!");
+    }else alert("Você deve aceitar os termos de uso!");
 });

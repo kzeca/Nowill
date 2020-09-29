@@ -13,13 +13,20 @@
     position: absolute;
 }
 
-
+.PrjktNameLogin{
+    font-family: Quicksand;
+    font-size: 75px;
+    line-height: 100px;
+    text-align: center;
+    letter-spacing: 0.15em;
+    color: #f2f2f2;
+}
 
 .form-box{
     width: 380px;
     height: 480px;
     position: relative;
-    margin: 6% auto;
+    margin: 1% auto;
     background: #f2f2f2;
     padding: 5px;
     overflow: hidden;
