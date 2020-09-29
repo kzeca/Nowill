@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_list"
+    android:id="@+id/activity_register_layout"
+    tools:context=".RegisterActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#f2f2f2"
+        android:text="CADASTRO"
+        android:fontFamily="@font/quicksand_bold"
+        android:textSize="60dp"
+        android:letterSpacing="0.08"
+        android:layout_margin="10dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:background="@drawable/selectborder"
+        android:id="@+id/activity_register_layout_nome">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_person"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="NOME"
+            android:gravity="center"
+            android:textSize="36sp"
+            android:fontFamily="@font/quicksand_medium"
+            android:textColor="#f2f2f2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:id="@+id/activity_register_layout_biometria">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_fingerprint"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="BIOMETRIA"
+            android:gravity="center"
+            android:textSize="36sp"
+            android:fontFamily="@font/quicksand_medium"
+            android:textColor="#f2f2f2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:id="@+id/activity_register_layout_endereco">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_my_location"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="ENDERECO"
+            android:gravity="center"
+            android:textSize="36sp"
+            android:fontFamily="@font/quicksand_medium"
+            android:textColor="#f2f2f2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5dp"
+        android:id="@+id/activity_register_layout_pagamento">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_payment"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="PAGAMENTO"
+            android:gravity="center"
+            android:textSize="36sp"
+            android:fontFamily="@font/quicksand_medium"
+            android:textColor="#f2f2f2"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CONFIRMAR"
+        android:gravity="center"
+        android:textSize="36sp"
+        android:fontFamily="@font/quicksand_bold"
+        android:textColor="#f2f2f2"
+        android:layout_margin="30dp" />
+
+</LinearLayout>
