@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Quicksand;
+}
+
+.hero{
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(#022873, #1B65A6);
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    overflow: auto;
+}
+
+h1{
+    font-size: 50px;
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #f2f2f2;
+    margin-top: 1%;
+}
+
+h2{
+    letter-spacing: 0.05em;
+    text-align: center;
+    color: #f2f2f2;
+}
+
+.form-box{
+    width: 380px;
+    height: 510px;
+    position: relative;
+    margin: 1% auto;
+    background: #f2f2f2;
+    padding: 5px;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+#LogoEstabelecimento{
+    margin: 0.1% auto;
+    width: 15%;
+    display: block;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+
+h6{
+    margin: 1% auto;
+    text-align: center;
+    position: relative;
+    letter-spacing: 0.01em;  
+}
+
+.input-group{
+    position: relative;
+    margin: 3% auto;
+    width: 70%;
+}
+
+.input-field{
+    width: 100%;
+    padding: 10px 0;
+    margin: 5px 0;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+select{
+    background: #ffffff;
+    color: #000000;
+    font-size: 12px;
+    padding: 5px;
+    border-radius: 3px;
+    margin-top: 8%;
+}
+
+h5{
+    margin-top: 8%;
+    text-align: center;
+}
+
+.location-box{
+    align-items: center;
+    position: relative;
+    display: block;
+    justify-content: center;
+    margin: 0% auto;
+}
+
+#localizacao{
+    margin: 1% auto;
+    text-align: center;
+    position: relative;
+    letter-spacing: 0.01em;
+    font-size: 10px; 
+}
+
+iframe{
+    text-align: center;
+    margin: 3% auto;
+}
+
+.check-fields{
+    align-items: center;
+    position: absolute;
+    display: block;
+    justify-content: center;
+    margin: 1% auto;
+}
+
+.check-box{
+    position: initial;
+    margin: 4% auto;
+}
+
+.submit-btn{
+    width: 85%;
+
+    padding: 10px 30px;
+    cursor: pointer;
+    display: block;
+    margin: 5%;
+    background: linear-gradient(to right,#022873, #1B65A6);
+    border: 0;
+    outline: none;
+    border-radius: 20px;
+    color: #f2f2f2;
+    font-family: Quicksand;
+}
