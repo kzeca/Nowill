@@ -1,0 +1,37 @@
+.logoButton {
+    padding: 10px
+}
+
+.svgHover svg {
+  border-radius: 29px;
+  font-size: 12px;
+
+  display: none;
+}
+
+.svg-background {
+  height: 57px;
+  width: 57px;
+
+  border-radius: 29px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.3s;
+}
+.svg-background:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: 0.3s;
+}
+
+.svg-background:hover svg {
+  display: block;
+
+  transition: 0.3s;
+}
+
+.content {
+  margin-top: -57px;
+}

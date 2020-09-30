@@ -1,0 +1,9 @@
+.check-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  font-size: 16px;
+
+  margin: 10px 0;
+}

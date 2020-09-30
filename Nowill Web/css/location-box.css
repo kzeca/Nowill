@@ -1,0 +1,13 @@
+.location-box {
+  min-width: 350px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-left: -15px;
+}
+
+.location-box h5 {
+  margin-right: 5px;
+}
