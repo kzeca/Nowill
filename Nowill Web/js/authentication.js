@@ -1,4 +1,5 @@
 const registerForm = document.querySelector("#register");
+const loginForm = document.querySelector('#login');
 
 
 registerForm.addEventListener('submit', (e) => {
@@ -19,3 +20,8 @@ registerForm.addEventListener('submit', (e) => {
         }else alert("As senhas não coincidem!");
     }else alert("Você deve aceitar os termos de uso!");
 });
+
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    window.location.href = "./pedidos.html";
+})
