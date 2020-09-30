@@ -1,173 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NOWILL</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="//fonts.googleapis.com/css?family=Quicksand"
-    />
-  </head>
-  <body>
-    <div class="hero">
-      <h1 class="PrjktNameLogin">NOWILL</h1>
-      <div class="form-box">
-        <div class="button-box">
-          <div id="btn"></div>
-          <button type="button" class="toggle-btn" onclick="loginAnim()">
-            Entrar
-          </button>
-          <button type="button" class="toggle-btn" onclick="registerAnim()">
-            Inscrever
-          </button>
-        </div>
-        <div class="social-icons">
-          <svg
-            id="Capa_1"
-            enable-background="new 0 0 512 512"
-            height="512"
-            viewBox="0 0 512 512"
-            width="512"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g>
-              <path
-                d="m120 256c0-25.367 6.989-49.13 19.131-69.477v-86.308h-86.308c-34.255 44.488-52.823 98.707-52.823 155.785s18.568 111.297 52.823 155.785h86.308v-86.308c-12.142-20.347-19.131-44.11-19.131-69.477z"
-                fill="#fbbd00"
-              />
-              <path
-                d="m256 392-60 60 60 60c57.079 0 111.297-18.568 155.785-52.823v-86.216h-86.216c-20.525 12.186-44.388 19.039-69.569 19.039z"
-                fill="#0f9d58"
-              />
-              <path
-                d="m139.131 325.477-86.308 86.308c6.782 8.808 14.167 17.243 22.158 25.235 48.352 48.351 112.639 74.98 181.019 74.98v-120c-49.624 0-93.117-26.72-116.869-66.523z"
-                fill="#31aa52"
-              />
-              <path
-                d="m512 256c0-15.575-1.41-31.179-4.192-46.377l-2.251-12.299h-249.557v120h121.452c-11.794 23.461-29.928 42.602-51.884 55.638l86.216 86.216c8.808-6.782 17.243-14.167 25.235-22.158 48.352-48.353 74.981-112.64 74.981-181.02z"
-                fill="#3c79e6"
-              />
-              <path
-                d="m352.167 159.833 10.606 10.606 84.853-84.852-10.606-10.606c-48.352-48.352-112.639-74.981-181.02-74.981l-60 60 60 60c36.326 0 70.479 14.146 96.167 39.833z"
-                fill="#cf2d48"
-              />
-              <path
-                d="m256 120v-120c-68.38 0-132.667 26.629-181.02 74.98-7.991 7.991-15.376 16.426-22.158 25.235l86.308 86.308c23.753-39.803 67.246-66.523 116.87-66.523z"
-                fill="#eb4132"
-              />
-            </g>
-          </svg>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            xmlns:svgjs="http://svgjs.com/svgjs"
-            version="1.1"
-            width="512"
-            height="512"
-            x="0"
-            y="0"
-            viewBox="0 0 512 512"
-            style="enable-background: new 0 0 512 512"
-            xml:space="preserve"
-            class=""
-          >
-            <g>
-              <path
-                xmlns="http://www.w3.org/2000/svg"
-                d="m512 256c0-141.4-114.6-256-256-256s-256 114.6-256 256 114.6 256 256 256c1.5 0 3 0 4.5-.1v-199.2h-55v-64.1h55v-47.2c0-54.7 33.4-84.5 82.2-84.5 23.4 0 43.5 1.7 49.3 2.5v57.2h-33.6c-26.5 0-31.7 12.6-31.7 31.1v40.8h63.5l-8.3 64.1h-55.2v189.5c107-30.7 185.3-129.2 185.3-246.1z"
-                fill="#022873"
-                data-original="#000000"
-                style=""
-                class=""
-              />
-            </g>
-          </svg>
-          <svg
-            version="1.1"
-            id="Capa_1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            x="0px"
-            y="0px"
-            viewBox="0 0 512 512"
-            style="enable-background: new 0 0 512 512"
-            xml:space="preserve"
-          >
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOWILL</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
+</head>
+
+<body>
+  <div class="hero">
+    <h1 class="PrjktNameLogin">NOWILL</h1>
+    <div class="form-box">
+      <div class="button-box">
+        <div id="btn"></div>
+        <button type="button" class="toggle-btn" onclick="loginAnim()">
+          Entrar
+        </button>
+        <button type="button" class="toggle-btn" onclick="registerAnim()">
+          Inscrever
+        </button>
+      </div>
+      <div class="social-icons">
+        <svg id="Capa_1" enable-background="new 0 0 512 512" height="512" viewBox="0 0 512 512" width="512"
+          xmlns="http://www.w3.org/2000/svg">
+          <g>
             <path
-              style="fill: #03a9f4"
-              d="M512,97.248c-19.04,8.352-39.328,13.888-60.48,16.576c21.76-12.992,38.368-33.408,46.176-58.016
+              d="m120 256c0-25.367 6.989-49.13 19.131-69.477v-86.308h-86.308c-34.255 44.488-52.823 98.707-52.823 155.785s18.568 111.297 52.823 155.785h86.308v-86.308c-12.142-20.347-19.131-44.11-19.131-69.477z"
+              fill="#fbbd00" />
+            <path
+              d="m256 392-60 60 60 60c57.079 0 111.297-18.568 155.785-52.823v-86.216h-86.216c-20.525 12.186-44.388 19.039-69.569 19.039z"
+              fill="#0f9d58" />
+            <path
+              d="m139.131 325.477-86.308 86.308c6.782 8.808 14.167 17.243 22.158 25.235 48.352 48.351 112.639 74.98 181.019 74.98v-120c-49.624 0-93.117-26.72-116.869-66.523z"
+              fill="#31aa52" />
+            <path
+              d="m512 256c0-15.575-1.41-31.179-4.192-46.377l-2.251-12.299h-249.557v120h121.452c-11.794 23.461-29.928 42.602-51.884 55.638l86.216 86.216c8.808-6.782 17.243-14.167 25.235-22.158 48.352-48.353 74.981-112.64 74.981-181.02z"
+              fill="#3c79e6" />
+            <path
+              d="m352.167 159.833 10.606 10.606 84.853-84.852-10.606-10.606c-48.352-48.352-112.639-74.981-181.02-74.981l-60 60 60 60c36.326 0 70.479 14.146 96.167 39.833z"
+              fill="#cf2d48" />
+            <path
+              d="m256 120v-120c-68.38 0-132.667 26.629-181.02 74.98-7.991 7.991-15.376 16.426-22.158 25.235l86.308 86.308c23.753-39.803 67.246-66.523 116.87-66.523z"
+              fill="#eb4132" />
+          </g>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:svgjs="http://svgjs.com/svgjs" version="1.1" width="512" height="512" x="0" y="0" viewBox="0 0 512 512"
+          style="enable-background: new 0 0 512 512" xml:space="preserve" class="">
+          <g>
+            <path xmlns="http://www.w3.org/2000/svg"
+              d="m512 256c0-141.4-114.6-256-256-256s-256 114.6-256 256 114.6 256 256 256c1.5 0 3 0 4.5-.1v-199.2h-55v-64.1h55v-47.2c0-54.7 33.4-84.5 82.2-84.5 23.4 0 43.5 1.7 49.3 2.5v57.2h-33.6c-26.5 0-31.7 12.6-31.7 31.1v40.8h63.5l-8.3 64.1h-55.2v189.5c107-30.7 185.3-129.2 185.3-246.1z"
+              fill="#022873" data-original="#000000" style="" class="" />
+          </g>
+        </svg>
+        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+          x="0px" y="0px" viewBox="0 0 512 512" style="enable-background: new 0 0 512 512" xml:space="preserve">
+          <path style="fill: #03a9f4" d="M512,97.248c-19.04,8.352-39.328,13.888-60.48,16.576c21.76-12.992,38.368-33.408,46.176-58.016
 						c-20.288,12.096-42.688,20.64-66.56,25.408C411.872,60.704,384.416,48,354.464,48c-58.112,0-104.896,47.168-104.896,104.992
 						c0,8.32,0.704,16.32,2.432,23.936c-87.264-4.256-164.48-46.08-216.352-109.792c-9.056,15.712-14.368,33.696-14.368,53.056
 						c0,36.352,18.72,68.576,46.624,87.232c-16.864-0.32-33.408-5.216-47.424-12.928c0,0.32,0,0.736,0,1.152
 						c0,51.008,36.384,93.376,84.096,103.136c-8.544,2.336-17.856,3.456-27.52,3.456c-6.72,0-13.504-0.384-19.872-1.792
 						c13.6,41.568,52.192,72.128,98.08,73.12c-35.712,27.936-81.056,44.768-130.144,44.768c-8.608,0-16.864-0.384-25.12-1.44
 						C46.496,446.88,101.6,464,161.024,464c193.152,0,298.752-160,298.752-298.688c0-4.64-0.16-9.12-0.384-13.568
-						C480.224,136.96,497.728,118.496,512,97.248z"
-            />
-          </svg>
-        </div>
-        <form id="login" class="input-group">
-          <input
-            type="email"
-            class="input-field"
-            placeholder="Insira seu email"
-            required
-          />
-          <input
-            type="password"
-            class="input-field"
-            placeholder="Insira sua senha"
-            id="SignInPassword"
-            required
-          />
-          <input type="checkbox" class="chech-box" id="cbRemember" /><span
-            >Lembre-se de mim</span
-          >
-          <button type="submit" class="submit-btn">Entrar</button>
-        </form>
-        <form id="register" class="input-group">
-          <input
-            type="email"
-            class="input-field"
-            placeholder="Insira seu email"
-            id="SignUpEmail"
-            required
-          />
-          <input
-            type="password"
-            class="input-field"
-            placeholder="Insira sua senha"
-            id="SignUpPassword"
-            required
-          />
-          <input
-            type="password"
-            class="input-field"
-            placeholder="Confirme sua senha"
-            id="ConfirmPassword"
-            required
-          />
-          <input type="checkbox" class="chech-box" id="cbAgree" /><span
-            >Eu concordo com os
-            <a href="https://www.google.com/" target="_blank"
-              >Termos e Condições</a
-            ></span
-          >
-          <button type="submit" class="submit-btn">Inscrever</button>
-        </form>
+						C480.224,136.96,497.728,118.496,512,97.248z" />
+        </svg>
       </div>
+      <form id="login" class="input-group">
+        <input type="email" class="input-field" placeholder="Insira seu email" required />
+        <input type="password" class="input-field" placeholder="Insira sua senha" id="SignInPassword" required />
+        <input type="checkbox" class="chech-box" id="cbRemember" /><span>Lembre-se de mim</span>
+        <button type="submit" class="submit-btn">Entrar</button>
+      </form>
+      <form id="register" class="input-group">
+        <input type="email" class="input-field" placeholder="Insira seu email" id="SignUpEmail" required />
+        <input type="password" class="input-field" placeholder="Insira sua senha" id="SignUpPassword" required />
+        <input type="password" class="input-field" placeholder="Confirme sua senha" id="ConfirmPassword" required />
+        <input type="checkbox" class="chech-box" id="cbAgree" /><span>Eu concordo com os
+          <a href="https://www.google.com/" target="_blank">Termos e Condições</a></span>
+        <button type="submit" class="submit-btn">Inscrever</button>
+      </form>
     </div>
-  </body>
+  </div>
+</body>
 
-  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
 
-  <link rel="stylesheet" href="../css/style.css" />
-  <script src="../js/anim_login.js"></script>
-  <script src="../js/app.js"></script>
-  <script src="../js/authentication.js"></script>
+<link rel="stylesheet" href="../css/style.css" />
+<script src="../js/anim_login.js"></script>
+<script src="../js/app.js"></script>
+<script src="../js/authentication.js"></script>
+
 </html>

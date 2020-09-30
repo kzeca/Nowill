@@ -133,3 +133,39 @@ span{
 #register{
     left: 450px;
 }
+
+@media only screen and (max-width: 600px){
+    .PrjktNameLogin{  
+        font-size: 50px;
+    }
+
+    .form-box{
+        width: 300px;
+        height: 370px;
+        position: relative;
+        margin: 1% auto;
+        background: #f2f2f2;
+        padding: 5px;
+        overflow: auto;
+    }
+    
+    .input-group{
+        top: 155px;
+        position: absolute;
+        text-align: center;
+        width: 200px;
+        transition: .5s;
+    }
+    .input-field{
+        margin: 10px 0;
+    }
+
+    .chech-box{
+        margin: 10px 5px 30px -80px;
+    }
+    
+    span{
+        font-size: 10px;
+        bottom: 68px;
+    }
+}
