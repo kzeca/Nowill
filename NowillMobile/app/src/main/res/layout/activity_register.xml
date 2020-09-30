@@ -110,6 +110,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/activity_register_tv_confirmar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CONFIRMAR"
