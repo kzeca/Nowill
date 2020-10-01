@@ -7,14 +7,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-public class SearchScreen extends Activity implements View.OnTouchListener {
+public class ResultActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
     private float x1, x2, y1, y2;
@@ -23,13 +20,13 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_result);
         gestureDetector = new GestureDetector(this, new GestureListener());
         setAnimations();
     }
 
     private void setAnimations() {
-        ConstraintLayout constraintLayout = findViewById(R.id.activity_search_layout);
+        ConstraintLayout constraintLayout = findViewById(R.id.activity_result_layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
@@ -89,10 +86,9 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
                     }
                     else{
                         // Detect bottom to top swipe
-                        Intent intent = new Intent(SearchScreen.this, DadosActivity.class);
+                        Intent intent = new Intent(ResultActivity.this, SearchScreen.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up);
-
                     }
                 }
                 break;
@@ -103,11 +99,7 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            Intent intent = new Intent(SearchScreen.this, ResultActivity.class);
-            startActivity(intent);
-            finish();
             return super.onDoubleTap(e);
         }
     }
-
 }

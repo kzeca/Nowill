@@ -22,7 +22,7 @@ import androidx.core.view.GestureDetectorCompat;
 public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
-    private int i;
+    private int option;
     LinearLayout fieldNome, fieldBiometria, fieldEndereco, fieldPagamento;
     TextView txtContinuar;
 
@@ -44,7 +44,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     }
 
     private void setObjects() {
-        i = 0;
+        option = 0;
         fieldNome = findViewById(R.id.activity_register_layout_nome);
         fieldBiometria = findViewById(R.id.activity_register_layout_biometria);
         fieldEndereco = findViewById(R.id.activity_register_layout_endereco);
@@ -55,17 +55,17 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            if(i != 4) i++;
+            if(option != 4) option++;
             setItemSelected();
         } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-            if(i != 0) i--;
+            if(option != 0) option--;
             setItemSelected();
         }
         return true;
     }
 
     private void setItemSelected() {
-        switch (i){
+        switch (option){
             case 0:
                 fieldNome.setBackgroundResource(R.drawable.selectborder);
                 fieldBiometria.setBackgroundResource(0);
@@ -109,7 +109,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            switch (i){
+            switch (option){
                 case 0:
                     Toast.makeText(getApplicationContext(), "Campo do nome", Toast.LENGTH_SHORT).show();
                     break;
@@ -127,14 +127,13 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                     break;
 
                 case 4:
-                    Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(RegisterActivity.this, SearchScreen.class);
                     startActivity(intent);
                     finish();
                     break;
             }
             return super.onDoubleTap(e);
         }
-
     }
 
 }
