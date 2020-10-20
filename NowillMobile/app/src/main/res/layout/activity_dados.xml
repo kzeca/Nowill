@@ -58,7 +58,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/quicksand_medium"
                 android:gravity="center"
-                android:text="NOME"
+                android:text="PESSOAL"
                 android:textColor="#f2f2f2"
                 android:textSize="36sp" />
 

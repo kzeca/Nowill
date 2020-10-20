@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="NOME"
+            android:text="PESSOAL"
             android:gravity="center"
             android:textSize="32sp"
             android:fontFamily="@font/quicksand_medium"

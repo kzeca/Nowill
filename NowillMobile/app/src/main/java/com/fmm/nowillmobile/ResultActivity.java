@@ -1,5 +1,6 @@
 package com.fmm.nowillmobile;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -7,22 +8,41 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class ResultActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
     private float x1, x2, y1, y2;
     private static int MIN_DISTANCE = 250;
+    EditText etSearchResult;
+    private String searchResult;
+    TextToSpeech textToSpeech;
+    private static final int REQUEST_CODE_SPEECH_INPUT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        setObjects();
+        searchResult = getIntent().getStringExtra("RESULTADO");
+        etSearchResult.setText(searchResult);
         gestureDetector = new GestureDetector(this, new GestureListener());
         setAnimations();
+    }
+
+    private void setObjects() {
+        etSearchResult = findViewById(R.id.activity_result_et_search_result);
     }
 
     private void setAnimations() {
@@ -78,11 +98,8 @@ public class ResultActivity extends Activity implements View.OnTouchListener {
                 else if(Math.abs(valueY) > MIN_DISTANCE){
 
                     //Detect top to bottom swipe
-                    if(y2 > y1){/*
-                        Intent intent = new Intent(CenterActivity.this, UpActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_down);
-                        Log.d(TAG, "Bottom swipe ");*/
+                    if(y2 > y1){
+                        speakSearchResult();
                     }
                     else{
                         // Detect bottom to top swipe
@@ -96,10 +113,55 @@ public class ResultActivity extends Activity implements View.OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
+    private void speakSearchResult() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Something");
+
+        try{
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             return super.onDoubleTap(e);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case REQUEST_CODE_SPEECH_INPUT:
+                if(resultCode == RESULT_OK && data != null){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    etSearchResult.setText(result.get(0));
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        if(textToSpeech != null){
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 }

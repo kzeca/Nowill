@@ -2,9 +2,11 @@ package com.fmm.nowillmobile;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +14,9 @@ import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +24,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
 
+import org.w3c.dom.Text;
+
 public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
-    private int option;
+    private int optionRegister;
     LinearLayout fieldNome, fieldBiometria, fieldEndereco, fieldPagamento;
     TextView txtContinuar;
 
@@ -44,7 +51,7 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     }
 
     private void setObjects() {
-        option = 0;
+        optionRegister = 0;
         fieldNome = findViewById(R.id.activity_register_layout_nome);
         fieldBiometria = findViewById(R.id.activity_register_layout_biometria);
         fieldEndereco = findViewById(R.id.activity_register_layout_endereco);
@@ -55,17 +62,21 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            if(option != 4) option++;
+            if(optionRegister != 4) {
+                optionRegister++;
+            }
             setItemSelected();
         } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-            if(option != 0) option--;
+            if(optionRegister != 0) {
+                optionRegister--;
+            }
             setItemSelected();
         }
         return true;
     }
 
     private void setItemSelected() {
-        switch (option){
+        switch (optionRegister){
             case 0:
                 fieldNome.setBackgroundResource(R.drawable.selectborder);
                 fieldBiometria.setBackgroundResource(0);
@@ -109,31 +120,36 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            switch (option){
+            Intent intent;
+            Log.d("PESSOAL", "Peguei");
+
+            switch (optionRegister) {
                 case 0:
-                    Toast.makeText(getApplicationContext(), "Campo do nome", Toast.LENGTH_SHORT).show();
-                    break;
-
-                case 1:
-                    Toast.makeText(getApplicationContext(), "Campo da biometria", Toast.LENGTH_SHORT).show();
-                    break;
-
-                case 2:
-                    Toast.makeText(getApplicationContext(), "Campo do endereço", Toast.LENGTH_SHORT).show();
-                    break;
-
-                case 3:
-                    Toast.makeText(getApplicationContext(), "Campo do pagamento", Toast.LENGTH_SHORT).show();
-                    break;
-
-                case 4:
-                    Intent intent = new Intent(RegisterActivity.this, SearchScreen.class);
+                    intent = new Intent(RegisterActivity.this, DialogPessoalActivity.class);
                     startActivity(intent);
-                    finish();
                     break;
-            }
+
+                    case 1:
+                        Toast.makeText(getApplicationContext(), "Campo da biometria", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 2:
+                        Toast.makeText(getApplicationContext(), "Campo do endereço", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 3:
+                        Toast.makeText(getApplicationContext(), "Campo do pagamento", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case 4:
+                        intent = new Intent(RegisterActivity.this, SearchScreen.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+                }
+
             return super.onDoubleTap(e);
         }
-    }
 
+    }
 }
