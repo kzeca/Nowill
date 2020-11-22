@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">Nowill Mobile</string>
+
+    <string name="RegisterActivity_intro">Olá! Seja muito bem-vindo ao aplicativo Nowill! Já que essa é a primeira vez que você está entrando no software, vamos começar
+    configurando suas informações, essas que são extremamente necessárias para o bom uso do aplicativo. Para começar, você está
+    no campo dos dados pessoais. Para seleciona-lo, clique duas vezes na tela. Caso queira ir para o campo onde será configurado sua
+    senha para abertura do aplicativo, clique no botão que diminui seu volume! Se você gostaria que eu repetisse, pressione a tela para
+    tal ação.</string>
+    <string name="RegisterActivity_explicando_pessoal">Você está selecionando o campo de dados pessoais. Nele, você configurará
+    informações sobre seu nome, sua data de nascimento e seu c.p.f. Para selecioná-lo, clique duas vezes na tela. Caso queira configurar
+    sua senha para entrar no aplicativo, pressione o botão que diminui seu volume! Se você gostaria que eu repetisse, pressione a tela para
+    tal ação.</string>
+    <string name="RegisterActivity_explicando_biometria">Você está selecionando o campo da biometria. Nele, você configurará
+    a forma que o aplicativo usará para segurança. Recomenda-se que seu aplicativo faça uso de biometria como forma de segurança,
+    pois ela será mais eficaz e utilizaremos ela para melhor segurança e usabilidade do aplicativo. Caso seu dispositivo não possua, será
+    utilizado o método de palavras chaves, que não deixa de ser seguro, mas não tanto quanto o que a biometria proporciona. Se você deseja
+    configurar essa senha, clique duas vezes na tela. Se você deseja configurar seu endereço, pressione no botão que diminui seu volume! Caso
+    queira configurar suas informações pessoais, pressione o botão que aumenta seu volume! Ou então, caso queira que eu repita todas as
+    informações, pressione a tela para tal ação.</string>
+    <string name="RegisterActivity_explicando_endereço">Você está selecionando o campo do endereço. Nele, você configurará onde gostaria
+    que suas futuros pedidos sejam entregues. Isso é uma forma de facilitar para que tudo seja agilizado em suas compras. Lembre-se que
+    você, durante seus pedidos, pode selecionar outros endereços. Se você deseja configurar seu endereço, clique duas vezes na tela. Caso
+    deseja configurar seu método de pagamento, pressione o botão que diminui seu volume! Caso deseja configurar sua senha, pressione o botão
+        que aumenta seu volume! Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação.</string>
+    <string name="RegisterActivity_explicando_pagamento">Você está selecionando o campo do pagamento. Nele, você configurará seu método de
+    pagamento de fácil acesso. Isto é uma forma de facilitar o decorrer de seus pedidos no aplicativo, visto que uma conta já cadastrada fará
+    com que tudo ocorra de maneira mais prática! Lembre-se que você, durante seus pedidos, pode selecionar outros métodos de pagamento, mas ter
+    um já cadastrado facilita a usabilidade do software. Se você deseja configurar seu método de pagamento, clique duas vezes na tela. Caso
+    deseja confirmar todas as informações acima, pressione o botão que diminui se volume! Caso deseja configurar seu endereço, pressione o botão
+    que aumenta seu volume! Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação.</string>
+    <string name="RegisterActivity_explicando_confirmar">Você está selecionando confirmar. Aqui, clicando duas vezes, você confirma todas as
+    informações que você passou nos campos acima! Se você deseja começar a usar o aplicativo, pressione duas vezes a tela! Caso queira configurar seu método
+    de pagamento, pressione o botão que aumenta seu volume! Ou então, se você deseja que eu repita todas as informações, pressione a tela para
+    tal ação.</string>
 </resources>

@@ -9,6 +9,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -26,17 +27,37 @@ import androidx.core.view.GestureDetectorCompat;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
     private int optionRegister;
     LinearLayout fieldNome, fieldBiometria, fieldEndereco, fieldPagamento;
     TextView txtContinuar;
+    private TextToSpeech textToSpeech;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == textToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.getDefault());
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                    || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }
+                }else{
+                    Log.e("TTS", "Initialization Failed");
+                }
+                textToSpeech.speak( getResources().getString(R.string.RegisterActivity_intro), TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
+        textToSpeech.setSpeechRate(0.8f);
+        textToSpeech.setPitch(1);
         gestureDetector = new GestureDetector(this, new GestureListener());
         setObjects();
         setAnimations();
@@ -64,11 +85,13 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             if(optionRegister != 4) {
                 optionRegister++;
+                textToSpeech.stop();
             }
             setItemSelected();
         } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
             if(optionRegister != 0) {
                 optionRegister--;
+                textToSpeech.stop();
             }
             setItemSelected();
         }
@@ -78,29 +101,39 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     private void setItemSelected() {
         switch (optionRegister){
             case 0:
+                textToSpeech.speak( getResources().getString(R.string.RegisterActivity_explicando_pessoal),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldNome.setBackgroundResource(R.drawable.selectborder);
                 fieldBiometria.setBackgroundResource(0);
                 break;
 
             case 1:
+                textToSpeech.speak(getResources().getString(R.string.RegisterActivity_explicando_biometria),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldBiometria.setBackgroundResource(R.drawable.selectborder);
                 fieldNome.setBackgroundResource(0);
                 fieldEndereco.setBackgroundResource(0);
                 break;
 
             case 2:
+                textToSpeech.speak(getResources().getString(R.string.RegisterActivity_explicando_endereço),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldEndereco.setBackgroundResource(R.drawable.selectborder);
                 fieldBiometria.setBackgroundResource(0);
                 fieldPagamento.setBackgroundResource(0);
                 break;
 
             case 3:
+                textToSpeech.speak(getResources().getString(R.string.RegisterActivity_explicando_pagamento),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldPagamento.setBackgroundResource(R.drawable.selectborder);
                 fieldEndereco.setBackgroundResource(0);
                 txtContinuar.setBackgroundResource(0);
                 break;
 
             case 4:
+                textToSpeech.speak(getResources().getString(R.string.RegisterActivity_explicando_confirmar),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 txtContinuar.setBackgroundResource(R.drawable.selectborder);
                 fieldPagamento.setBackgroundResource(0);
                 break;
@@ -125,23 +158,27 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
             switch (optionRegister) {
                 case 0:
+                    textToSpeech.stop();
                     intent = new Intent(RegisterActivity.this, DialogPessoalActivity.class);
                     startActivity(intent);
                     break;
-
                     case 1:
+                        textToSpeech.stop();
                         Toast.makeText(getApplicationContext(), "Campo da biometria", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 2:
+                        textToSpeech.stop();
                         Toast.makeText(getApplicationContext(), "Campo do endereço", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 3:
+                        textToSpeech.stop();
                         Toast.makeText(getApplicationContext(), "Campo do pagamento", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 4:
+                        textToSpeech.stop();
                         intent = new Intent(RegisterActivity.this, SearchScreen.class);
                         startActivity(intent);
                         finish();
@@ -151,5 +188,24 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
             return super.onDoubleTap(e);
         }
 
+        @Override
+        public void onLongPress(MotionEvent e) {
+            textToSpeech.stop();
+            setItemSelected();
+            super.onLongPress(e);
+        }
     }
+
+    private void repeatSpeak() {
+
+    }
+
+    @Override
+    protected void onStop() {
+        if(textToSpeech != null){
+            textToSpeech.stop();
+        }
+        super.onStop();
+    }
+
 }

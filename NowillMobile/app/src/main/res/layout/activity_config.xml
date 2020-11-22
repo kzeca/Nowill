@@ -80,14 +80,14 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/quicksand_medium"
                 android:gravity="center"
-                android:text="TOM DA VOZ"
+                android:text="TOM"
                 android:textColor="#f2f2f2"
                 android:textSize="36sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/activity_config_layout_info"
+            android:id="@+id/activity_config_layout_velocidade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -96,14 +96,14 @@
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/ic_info_black_24dp" />
+                android:src="@drawable/ic_speed_black_24dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/quicksand_medium"
                 android:gravity="center"
-                android:text="AJUDA"
+                android:text="VELOCIDADE"
                 android:textColor="#f2f2f2"
                 android:textSize="36sp" />
 
