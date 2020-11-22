@@ -86,22 +86,19 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
                 float valueY = y2 - y1;
 
                 if(Math.abs(valueX) > MIN_DISTANCE){
-                    /*
+
                     // Detect left to right swipe
                     if(x2 > x1){
-                        Intent intent = new Intent(CenterActivity.this, LeftActivity.class);
+                        Intent intent = new Intent(SearchScreen.this, DadosActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_rigth);
-                        Log.d(TAG, "Right swipe ");
                     }
                     else {
                         // Detect rigth to left swipe
-
-                        Intent intent = new Intent(CenterActivity.this, RightActivity.class);
+                        Intent intent = new Intent(SearchScreen.this, ConfigActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_rigth, R.anim.slide_out_left);
-                        Log.d(TAG, "Left swipe ");
-                    }*/
+                    }
                 }
                 else if(Math.abs(valueY) > MIN_DISTANCE){
 
@@ -114,10 +111,6 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
                     }
                     else{
                         // Detect bottom to top swipe
-                        Intent intent = new Intent(SearchScreen.this, DadosActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up);
-
                     }
                 }
                 break;

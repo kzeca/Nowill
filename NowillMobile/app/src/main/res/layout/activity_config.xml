@@ -4,44 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DadosActivity"
+    tools:context=".ConfigActivity"
     android:background="@drawable/gradient_list"
-    android:id="@+id/activity_dados_layout">
+    android:id="@+id/activity_config_layout">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imageView10"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_user_info"
+        android:src="@drawable/ic_settings_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.500"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/quicksand_bold"
-        android:text="DADOS"
+        android:text="AJUSTES"
         android:textColor="#f2f2f2"
         android:textSize="45sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:orientation="vertical"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <LinearLayout
-            android:id="@+id/activity_dados_layout_nome"
+            android:id="@+id/activity_config_layout_volume"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -51,21 +50,21 @@
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/ic_person" />
+                android:src="@drawable/ic_volume_up_black_24dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/quicksand_medium"
                 android:gravity="center"
-                android:text="PESSOAL"
+                android:text="VOLUME"
                 android:textColor="#f2f2f2"
                 android:textSize="36sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/activity_dados_layout_endereco"
+            android:id="@+id/activity_config_layout_tom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -74,21 +73,21 @@
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/ic_my_location" />
+                android:src="@drawable/ic_breathable" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/quicksand_medium"
                 android:gravity="center"
-                android:text="ENDEREÇO"
+                android:text="TOM DA VOZ"
                 android:textColor="#f2f2f2"
                 android:textSize="36sp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/activity_dados_layout_pagamento"
+            android:id="@+id/activity_config_layout_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
@@ -97,14 +96,14 @@
             <ImageView
                 android:layout_width="64dp"
                 android:layout_height="64dp"
-                android:src="@drawable/ic_payment" />
+                android:src="@drawable/ic_info_black_24dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/quicksand_medium"
                 android:gravity="center"
-                android:text="PAGAMENTO"
+                android:text="AJUDA"
                 android:textColor="#f2f2f2"
                 android:textSize="36sp" />
 
@@ -133,5 +132,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

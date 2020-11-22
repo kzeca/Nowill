@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DadosActivity"></activity>
+        <activity android:name=".ConfigActivity"></activity>
+        <activity android:name=".DadosActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".SearchScreen" />
         <activity android:name=".RegisterActivity" />
@@ -20,10 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DialogPessoalActivity"
+        <activity
+            android:name=".DialogPessoalActivity"
             android:configChanges="orientation"
             android:screenOrientation="sensor"
-            android:theme="@style/Theme.UserDialog"/>
+            android:theme="@style/Theme.UserDialog" />
     </application>
 
 </manifest>
