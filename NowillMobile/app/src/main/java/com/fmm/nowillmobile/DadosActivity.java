@@ -8,14 +8,18 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 
 public class DadosActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
     private float x1, x2, y1, y2;
     private static int MIN_DISTANCE = 250;
+    private int optionDados;
+    LinearLayout fieldPessoal, fieldEndereco, fieldPagamento;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,14 @@ public class DadosActivity extends Activity implements View.OnTouchListener {
         setContentView(R.layout.activity_dados);
         gestureDetector = new GestureDetector(this, new GestureListener());
         setAnimations();
+        setObjects();
+    }
+
+    private void setObjects() {
+        optionDados = 0;
+        fieldPessoal = findViewById(R.id.activity_dados_layout_nome);
+        fieldEndereco = findViewById(R.id.activity_dados_layout_endereco);
+        fieldPagamento = findViewById(R.id.activity_dados_layout_pagamento);
     }
 
     private void setAnimations() {
@@ -31,6 +43,43 @@ public class DadosActivity extends Activity implements View.OnTouchListener {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if(optionDados != 2) {
+                optionDados++;
+            }
+            setItemSelected();
+        } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            if(optionDados != 0) {
+                optionDados--;
+            }
+            setItemSelected();
+        }
+        return true;
+    }
+
+    private void setItemSelected() {
+        switch(optionDados){
+            case 0:
+                fieldPessoal.setBackgroundResource(R.drawable.selectborder);
+                fieldEndereco.setBackgroundResource(0);
+                break;
+
+            case 1:
+                fieldEndereco.setBackgroundResource(R.drawable.selectborder);
+                fieldPessoal.setBackgroundResource(0);
+                fieldPagamento.setBackgroundResource(0);
+                break;
+
+            case 2:
+                fieldPagamento.setBackgroundResource(R.drawable.selectborder);
+                fieldPessoal.setBackgroundResource(0);
+                fieldEndereco.setBackgroundResource(0);
+                break;
+        }
     }
 
     @Override

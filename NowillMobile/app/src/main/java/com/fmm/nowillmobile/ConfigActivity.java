@@ -7,21 +7,33 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 
 public class ConfigActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
     private float x1, x2, y1, y2;
     private static int MIN_DISTANCE = 250;
+    private int optionConfig;
+    LinearLayout fieldTom, fieldVolume, fieldVelocidade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
         gestureDetector = new GestureDetector(this, new GestureListener());
+        setObjects();
         setAnimations();
+    }
+
+    private void setObjects() {
+        optionConfig = 0;
+        fieldVolume = findViewById(R.id.activity_config_layout_volume);
+        fieldTom = findViewById(R.id.activity_config_layout_tom);
+        fieldVelocidade = findViewById(R.id.activity_config_layout_velocidade);
     }
 
     private void setAnimations() {
@@ -30,6 +42,43 @@ public class ConfigActivity extends Activity implements View.OnTouchListener {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if(optionConfig != 2) {
+                optionConfig++;
+            }
+            setItemSelected();
+        } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            if(optionConfig != 0) {
+                optionConfig--;
+            }
+            setItemSelected();
+        }
+        return true;
+    }
+
+    private void setItemSelected() {
+        switch (optionConfig){
+            case 0:
+                fieldVolume.setBackgroundResource(R.drawable.selectborder);
+                fieldTom.setBackgroundResource(0);
+                break;
+
+            case 1:
+                fieldTom.setBackgroundResource(R.drawable.selectborder);
+                fieldVolume.setBackgroundResource(0);
+                fieldVelocidade.setBackgroundResource(0);
+                break;
+
+            case 2:
+                fieldVelocidade.setBackgroundResource(R.drawable.selectborder);
+                fieldVolume.setBackgroundResource(0);
+                fieldTom.setBackgroundResource(0);
+                break;
+        }
     }
 
     @Override
