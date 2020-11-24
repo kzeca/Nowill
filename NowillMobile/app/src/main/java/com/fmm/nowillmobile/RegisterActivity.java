@@ -164,7 +164,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                     break;
                     case 1:
                         textToSpeech.stop();
-                        Toast.makeText(getApplicationContext(), "Campo da biometria", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(RegisterActivity.this, DialogBiometriaActivity.class);
+                        startActivity(intent);
                         break;
 
                     case 2:
@@ -196,9 +197,6 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         }
     }
 
-    private void repeatSpeak() {
-
-    }
 
     @Override
     protected void onStop() {

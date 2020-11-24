@@ -13,24 +13,24 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_person"/>
+        android:src="@drawable/ic_fingerprint"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="PESSOAL"
+        android:text="BIOMETRIA"
         android:textSize="24sp"
         android:textColor="#f2f2f2"
         android:fontFamily="@font/quicksand_medium"
         android:letterSpacing="0.15"/>
-    <EditText
-        android:id="@+id/dialog_pessoal_et_nome"
+    <TextView
+        android:id="@+id/dialog_biometria_tv_palavra"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:textSize="14sp"
-        android:hint="NOME"
+        android:text="PALAVRA-PASSE"
         android:background="@drawable/selectborder"
         android:paddingVertical="10dp"
         android:gravity="center"
@@ -40,63 +40,22 @@
         android:paddingHorizontal="10dp"
         android:layout_gravity="center"
         android:fontFamily="@font/quicksand"/>
-    <LinearLayout
+    <TextView
+        android:id="@+id/dialog_biometria_tv_verificar_biometria"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="DIA"
-            android:textColor="#f2f2f2"
-            android:fontFamily="@font/quicksand"
-            android:id="@+id/dialog_pessoal_tv_dia"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="MÊS"
-            android:textColor="#f2f2f2"
-            android:fontFamily="@font/quicksand"
-            android:id="@+id/dialog_pessoal_tv_mes"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="ANO"
-            android:textColor="#f2f2f2"
-            android:fontFamily="@font/quicksand"
-            android:id="@+id/dialog_pessoal_tv_ano"/>
-    </LinearLayout>
-
-    <EditText
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="25dp"
-        android:hint="CPF"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:text="VERIFICAR BIOMETRIA"
+        android:background="@drawable/selectborder"
+        android:paddingVertical="10dp"
         android:gravity="center"
         android:focusable="false"
-        android:paddingVertical="10dp"
-        android:textSize="14sp"
         android:textColorHint="#BEBEBE"
         android:textColor="#f2f2f2"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/quicksand"
-        android:id="@+id/dialog_pessoal_et_cpf" />
+        android:paddingHorizontal="10dp"
+        android:layout_gravity="center"
+        android:fontFamily="@font/quicksand"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -107,7 +66,7 @@
         android:fontFamily="@font/quicksand_medium"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
-        android:id="@+id/dialog_pessoal_tv_confirma"
+        android:id="@+id/dialog_biometria_tv_confirma"
         android:letterSpacing="0.08"/>
 
     <TextView

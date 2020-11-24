@@ -161,7 +161,6 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
     protected void onStop() {
         if(textToSpeech != null){
             textToSpeech.stop();
-            textToSpeech.shutdown();
         }
         super.onStop();
     }
@@ -170,7 +169,6 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
     protected void onDestroy() {
         if(textToSpeech != null) {
             textToSpeech.stop();
-            textToSpeech.shutdown();
         }
         super.onDestroy();
     }

@@ -1,8 +1,9 @@
 package com.fmm.nowillmobile;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -10,8 +11,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class DialogPessoalActivity extends Activity implements View.OnTouchListener{
 
@@ -22,6 +28,9 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
     private float x1, x2, y1, y2;
     private static int MIN_DISTANCE = 250;
     private final String TAG = "UPS";
+    private static final int REQUEST_CODE_SPEECH_NOME = 0,
+            REQUEST_CODE_SPEECH_DIA = 1, REQUEST_CODE_SPEECH_MES = 2,
+            REQUEST_CODE_SPEECH_ANO = 3, REQUEST_CODE_SPEECH_CPF = 4;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -150,7 +159,58 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
-            Log.d(TAG, "Bate-dois");
+            Intent intent;
+            switch (optionPessoal){
+                case 0:
+                    intent = speak();
+                    try{
+                        startActivityForResult(intent, REQUEST_CODE_SPEECH_NOME);
+                    }catch (Exception a){
+                        Toast.makeText(getApplicationContext(), ""+a.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 1:
+                    intent = speak();
+                    try{
+                        startActivityForResult(intent, REQUEST_CODE_SPEECH_DIA);
+                    }catch (Exception a){
+                        Toast.makeText(getApplicationContext(), ""+a.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 2:
+                    intent = speak();
+                    try{
+                        startActivityForResult(intent, REQUEST_CODE_SPEECH_MES);
+                    }catch (Exception a){
+                        Toast.makeText(getApplicationContext(), ""+a.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 3:
+                    intent = speak();
+                    try{
+                        startActivityForResult(intent, REQUEST_CODE_SPEECH_ANO);
+                    }catch (Exception a){
+                        Toast.makeText(getApplicationContext(), ""+a.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 4:
+                    intent = speak();
+                    try{
+                        startActivityForResult(intent, REQUEST_CODE_SPEECH_CPF);
+                    }catch (Exception a){
+                        Toast.makeText(getApplicationContext(), ""+a.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+
+                case 5:
+                    finish();
+                    break;
+            }
+
             return super.onDoubleTap(e);
         }
 
@@ -160,4 +220,60 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
             Log.d(TAG, "Bate-segura");
         }
     }
+
+    private Intent speak() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Something");
+        return intent;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode){
+            case REQUEST_CODE_SPEECH_NOME:
+                if(resultCode == RESULT_OK && data != null){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Log.d("BAH", result.get(0));
+                    fieldNome.setText(result.get(0));
+                }
+                break;
+
+            case REQUEST_CODE_SPEECH_DIA:
+                if(resultCode == RESULT_OK && data != null){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Log.d("BAH", result.get(0));
+                    fieldDia.setText(result.get(0));
+                }
+                break;
+
+            case REQUEST_CODE_SPEECH_MES:
+                if(resultCode == RESULT_OK && data != null){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Log.d("BAH", result.get(0));
+                    fieldMes.setText(result.get(0));
+                }
+                break;
+
+            case REQUEST_CODE_SPEECH_ANO:
+                if(resultCode == RESULT_OK && data != null){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Log.d("BAH", result.get(0));
+                    fieldAno.setText(result.get(0));
+                }
+                break;
+
+            case REQUEST_CODE_SPEECH_CPF:
+                if(resultCode == RESULT_OK && data != null){
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    Log.d("BAH", result.get(0));
+                    fieldCPF.setText(result.get(0));
+                }
+                break;
+        }
+    }
+    
 }
