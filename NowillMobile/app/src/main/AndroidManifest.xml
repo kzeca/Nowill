@@ -11,10 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EnderecoActivity"
+        <activity android:name=".DialogPagamentoActivity"></activity>
+        <activity
+            android:name=".DialogEnderecoActivity"
             android:configChanges="orientation"
             android:screenOrientation="sensor"
-            android:theme="@style/Theme.UserDialog"/>
+            android:theme="@style/Theme.UserDialog" />
         <activity
             android:name=".DialogBiometriaActivity"
             android:configChanges="orientation"

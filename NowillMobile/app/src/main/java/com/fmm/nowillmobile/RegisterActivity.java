@@ -170,7 +170,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
                     case 2:
                         textToSpeech.stop();
-                        Toast.makeText(getApplicationContext(), "Campo do endereço", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(RegisterActivity.this, DialogEnderecoActivity.class);
+                        startActivity(intent);
                         break;
 
                     case 3:
