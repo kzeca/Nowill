@@ -176,6 +176,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
                     case 3:
                         textToSpeech.stop();
+                        intent = new Intent(RegisterActivity.this, DialogPagamentoActivity.class);
+                        startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Campo do pagamento", Toast.LENGTH_SHORT).show();
                         break;
 
