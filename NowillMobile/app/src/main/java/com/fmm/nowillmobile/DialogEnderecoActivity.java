@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -29,18 +30,42 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
     private static final int REQUEST_CODE_SPEECH_RUA = 0,
             REQUEST_CODE_SPEECH_BAIRRO = 1, REQUEST_CODE_SPEECH_NUMERO = 2,
             REQUEST_CODE_SPEECH_CEP= 3;
+    private TextToSpeech textToSpeech;
+    RegisterActivity register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_endereco);
+        setVoice();
         setObjects();
         gestureDetector = new GestureDetector(this, new GestureListener());
         this.setFinishOnTouchOutside(false);
     }
 
+    private void setVoice() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == textToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.getDefault());
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }
+                }else{
+                    Log.e("TTS", "Initialization Failed");
+                }
+                textToSpeech.setSpeechRate(0.8f);
+                textToSpeech.setPitch(1);
+                textToSpeech.speak( getResources().getString(R.string.DialogEnderecoActivity_intro), TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
+    }
+
     private void setObjects() {
         optionEndereco = 0;
+        register = new RegisterActivity();
         fieldRua = findViewById(R.id.dialog_endereco_tv_rua);
         fieldBairro = findViewById(R.id.dialog_endereco_tv_bairro);
         fieldNumero = findViewById(R.id.dialog_endereco_tv_numero);
@@ -52,11 +77,13 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             if(optionEndereco != 4) {
+                textToSpeech.stop();
                 optionEndereco++;
             }
             setItemSelected();
         } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
             if(optionEndereco != 0) {
+                textToSpeech.stop();
                 optionEndereco--;
             }
             setItemSelected();
@@ -67,29 +94,39 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
     private void setItemSelected() {
         switch (optionEndereco){
             case 0:
+                textToSpeech.speak( getResources().getString(R.string.DialogEnderecoActivity_explicando_rua),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldRua.setBackgroundResource(R.drawable.selectborder);
                 fieldBairro.setBackgroundResource(0);
                 break;
 
             case 1:
+                textToSpeech.speak( getResources().getString(R.string.DialogEnderecoActivity_explicando_bairro),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldBairro.setBackgroundResource(R.drawable.selectborder);
                 fieldRua.setBackgroundResource(0);
                 fieldNumero.setBackgroundResource(0);
                 break;
 
             case 2:
+                textToSpeech.speak( getResources().getString(R.string.DialogEnderecoActivity_explicando_numero),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldNumero.setBackgroundResource(R.drawable.selectborder);
                 fieldCEP.setBackgroundResource(0);
                 fieldBairro.setBackgroundResource(0);
                 break;
 
             case 3:
+                textToSpeech.speak( getResources().getString(R.string.DialogEnderecoActivity_explicando_CEP),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldCEP.setBackgroundResource(R.drawable.selectborder);
                 fieldNumero.setBackgroundResource(0);
                 fieldConfirmar.setBackgroundResource(0);
                 break;
 
             case 4:
+                textToSpeech.speak( getResources().getString(R.string.DialogEnderecoActivity_explicando_confirmar),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldConfirmar.setBackgroundResource(R.drawable.selectborder);
                 fieldCEP.setBackgroundResource(0);
                 break;
@@ -138,7 +175,7 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
                         Log.d(TAG, "Bottom swipe ");
                     }
                     else{
-                        Log.d(TAG, "Top Swipe");
+                        textToSpeech.stop();
                         finish();
                     }
                 }
@@ -151,6 +188,7 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             Intent intent;
+            textToSpeech.stop();
             switch (optionEndereco){
                 case 0:
                     intent = speak();
@@ -190,6 +228,10 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
 
 
                 case 4:
+                    register.users.setRua(fieldRua.getText().toString());
+                    register.users.setBairro(fieldBairro.getText().toString());
+                    register.users.setNumero(fieldNumero.getText().toString());
+                    register.users.setCep(fieldCEP.getText().toString());
                     finish();
                     break;
             }
@@ -199,7 +241,8 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
         @Override
         public void onLongPress(MotionEvent e) {
             super.onLongPress(e);
-            Log.d(TAG, "Bate-segura");
+            textToSpeech.stop();
+            setItemSelected();
         }
     }
 
@@ -219,35 +262,47 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
             case REQUEST_CODE_SPEECH_RUA:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldRua.setText(result.get(0));
+                    String rua = result.get(0);
+                    rua = rua.trim();
+                    fieldRua.setText(rua);
                 }
                 break;
 
             case REQUEST_CODE_SPEECH_BAIRRO:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldBairro.setText(result.get(0));
+                    String bairro = result.get(0);
+                    bairro = bairro.trim();
+                    fieldBairro.setText(bairro);
                 }
                 break;
 
             case REQUEST_CODE_SPEECH_CEP:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldCEP.setText(result.get(0));
+                    String cep = result.get(0);
+                    cep = cep.trim();
+                    fieldCEP.setText(cep);
                 }
                 break;
 
             case REQUEST_CODE_SPEECH_NUMERO:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldNumero.setText(result.get(0));
+                    String numero = result.get(0);
+                    numero = numero.trim();
+                    fieldNumero.setText(numero);
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        if(textToSpeech != null){
+            textToSpeech.stop();
+        }
+        super.onStop();
     }
 
 }

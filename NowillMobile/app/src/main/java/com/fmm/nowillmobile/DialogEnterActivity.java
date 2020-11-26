@@ -2,17 +2,13 @@ package com.fmm.nowillmobile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -28,30 +24,25 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.Executor;
 
-public class DialogBiometriaActivity extends AppCompatActivity implements View.OnTouchListener{
+public class DialogEnterActivity extends AppCompatActivity implements View.OnTouchListener{
 
     GestureDetector gestureDetector;
-    TextView fieldPalavra, fieldConfirma, fieldBiometria;
-    int optionBiometria;
-    private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 260;
+    TextView fieldPalavra, fieldBiometria, fieldConfirma;
+    int optionEnter = 0;
     private final String TAG = "UPS";
-    Boolean bioEx = false;
+    Boolean bioEx;
     private static final int REQUEST_CODE_SPEECH = 0;
     private TextToSpeech textToSpeech;
     SharedPreferences sharedPreferences;
 
-    @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dialog_biometria);
+        setContentView(R.layout.activity_dialog_enter);
         setObjects();
-        biometricExists();
         setVoice();
         gestureDetector = new GestureDetector(this, new GestureListener());
         this.setFinishOnTouchOutside(false);
-
     }
 
     private void setVoice() {
@@ -67,32 +58,27 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
                 }else{
                     Log.e("TTS", "Initialization Failed");
                 }
-                textToSpeech.setSpeechRate(0.8f);
-                textToSpeech.setPitch(1);
+                textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                if(bioEx) textToSpeech.speak( getResources().getString(R.string.DialogEnterActivity_intro_cbio),
+                        TextToSpeech.QUEUE_FLUSH, null);
+                else textToSpeech.speak( getResources().getString(R.string.DialogEnterActivity_intro_sbio),
+                        TextToSpeech.QUEUE_FLUSH, null);
             }
         });
     }
 
-    private void biometricExists() {
-        final BiometricManager biometricManager = BiometricManager.from(this);
-        switch (biometricManager.canAuthenticate()) {
-            case BiometricManager.BIOMETRIC_SUCCESS:
-                bioEx = true;
-                fieldPalavra.setVisibility(View.GONE);
-                break;
-
-            default:
-                bioEx = false;
-                fieldBiometria.setVisibility(View.GONE);
-                break;
-        }
-    }
 
     private void setObjects() {
-        optionBiometria = 0;
-        fieldConfirma = findViewById(R.id.dialog_biometria_tv_confirma);
-        fieldPalavra = findViewById(R.id.dialog_biometria_tv_palavra);
-        fieldBiometria = findViewById(R.id.dialog_biometria_tv_verificar_biometria);
+        sharedPreferences = getApplicationContext().getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
+        fieldBiometria = findViewById(R.id.dialog_enter_tv_verificar_biometria);
+        fieldPalavra = findViewById(R.id.dialog_enter_tv_palavra);
+        fieldConfirma = findViewById(R.id.dialog_enter_tv_confirma);
+        bioEx = sharedPreferences.getBoolean("BIOMETRIA", false);
+        if(bioEx){
+            fieldPalavra.setVisibility(View.GONE);
+            fieldConfirma.setVisibility(View.GONE);
+        } else fieldBiometria.setVisibility(View.GONE);
     }
 
     @Override
@@ -101,43 +87,53 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return gestureDetector.onTouchEvent(event);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            if(optionBiometria != 1) {
-                optionBiometria++;
-                textToSpeech.stop();
+            if(!bioEx) {
+                if (optionEnter != 1) {
+                    optionEnter++;
+                    textToSpeech.stop();
 
+                }
+                setItemSelected();
             }
-            setItemSelected();
         } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-            if(optionBiometria != 0) {
-                optionBiometria--;
-                textToSpeech.stop();
+            if(!bioEx) {
+                if (optionEnter != 0) {
+                    optionEnter--;
+                    textToSpeech.stop();
 
+                }
+                setItemSelected();
             }
-            setItemSelected();
         }
         return true;
     }
 
     private void setItemSelected() {
-        switch (optionBiometria){
+        switch (optionEnter){
             case 0:
                 if(bioEx) {
                     fieldBiometria.setBackgroundResource(R.drawable.selectborder);
-                    textToSpeech.speak( getResources().getString(R.string.DialogBiometriaActivity_explicando_biometria),
+                    textToSpeech.speak( getResources().getString(R.string.DialogEnterActivity_intro_cbio),
                             TextToSpeech.QUEUE_FLUSH, null);
                 }
                 else {
                     fieldPalavra.setBackgroundResource(R.drawable.selectborder);
-                    textToSpeech.speak( getResources().getString(R.string.DialogBiometriaActivity_explicando_palavra),
+                    textToSpeech.speak( getResources().getString(R.string.DialogEnterActivity_intro_sbio),
                             TextToSpeech.QUEUE_FLUSH, null);
                 }
                 fieldConfirma.setBackgroundResource(0);
                 break;
 
             case 1:
-                textToSpeech.speak( getResources().getString(R.string.DialogBiometriaActivity_explicando_confirma),
+                textToSpeech.speak( getResources().getString(R.string.DialogEnterActivity_explicando_confirmar),
                         TextToSpeech.QUEUE_FLUSH, null);
                 fieldConfirma.setBackgroundResource(R.drawable.selectborder);
                 if(bioEx) fieldBiometria.setBackgroundResource(0);
@@ -146,62 +142,16 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
         }
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
-        switch (event.getAction()){
-            //starting swipe time gesture
-            case MotionEvent.ACTION_DOWN:
-                x1 = event.getX();
-                y1 = event.getY();
-                break;
-
-            //ending swipe time gesture
-            case MotionEvent.ACTION_UP:
-                x2 = event.getX();
-                y2 = event.getY();
-
-                //getting value from horizontal swipe
-                float valueX = x2 - x1;
-                //getting value from vertical swipe
-                float valueY = y2 - y1;
-
-                if(Math.abs(valueX) > MIN_DISTANCE){
-                    // Detect left to right swipe
-                    if(x2 > x1){
-                        Log.d(TAG, "Right swipe ");
-                    }
-                    else {
-                        // Detect rigth to left swipe
-                        Log.d(TAG, "Left swipe ");
-                    }
-                }
-                else if(Math.abs(valueY) > MIN_DISTANCE){
-
-                    //Detect top to bottom swipe
-                    if(y2 > y1){
-                        Log.d(TAG, "Bottom swipe ");
-                    }
-                    else{
-                        textToSpeech.stop();
-                        finish();
-                    }
-                }
-                break;
-        }
-        return gestureDetector.onTouchEvent(event);
-    }
-
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             Intent intent;
             textToSpeech.stop();
-            switch (optionBiometria){
+            switch (optionEnter){
                 case 0:
                     if(bioEx){
                         Executor executor = ContextCompat.getMainExecutor(getApplicationContext());
-                        final BiometricPrompt biometricPrompt = new BiometricPrompt(DialogBiometriaActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
+                        final BiometricPrompt biometricPrompt = new BiometricPrompt(DialogEnterActivity.this, executor, new BiometricPrompt.AuthenticationCallback() {
                             @Override
                             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                                 super.onAuthenticationError(errorCode, errString);
@@ -209,11 +159,15 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
 
                             @Override
                             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                                Intent intent1 = new Intent(DialogEnterActivity.this, SearchScreen.class);
+                                startActivity(intent1);
                                 super.onAuthenticationSucceeded(result);
                             }
 
                             @Override
                             public void onAuthenticationFailed() {
+                                textToSpeech.speak( "Você errou. Tente Novamente!",
+                                        TextToSpeech.QUEUE_FLUSH, null);
                                 super.onAuthenticationFailed();
                             }
                         });
@@ -235,17 +189,14 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
                     break;
 
                 case 1:
-                    sharedPreferences = getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    if(!bioEx){
-                        editor.putString("Palavra-Passe", fieldPalavra.getText().toString());
-                        editor.putBoolean("BIOMETRIA", false);
-                        editor.commit();
-                    } else {
-                        editor.putBoolean("BIOMETRIA", true);
-                        editor.commit();
+                    if(fieldPalavra.getText().toString().equals(sharedPreferences.getString("Palavra-Passe", ""))){
+                        intent = new Intent(DialogEnterActivity.this, SearchScreen.class);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        textToSpeech.speak( "Você errou. Tente Novamente!",
+                                TextToSpeech.QUEUE_FLUSH, null);
                     }
-                    finish();
                     break;
             }
             return super.onDoubleTap(e);
@@ -292,4 +243,5 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
         }
         super.onStop();
     }
+
 }
