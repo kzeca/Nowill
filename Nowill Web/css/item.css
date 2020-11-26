@@ -1,0 +1,138 @@
+.orders-page {
+  width: fit-content;
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+}
+
+.orders-page .items-list {
+  background: linear-gradient(180deg, #0339a6 0%, #0066bf 100%), #0339a6;
+
+  height: 100vh;
+}
+
+.orders-page .list .item {
+  width: 300px;
+  height: 80px;
+
+  margin-bottom: 5px;
+
+  display: flex;
+  justify-content: space-around;
+
+  font-family: Quicksand;
+  font-style: normal;
+  font-weight: 500;
+  /* font-size: 48px; */
+  /* line-height: 60px; */
+  /* identical to box height */
+
+  text-align: center;
+
+  color: #f2f2f2;
+
+  background: #022873;
+  border: 1px solid #022261;
+}
+
+.orders-page .list .status-bar {
+  min-height: 80px;
+  width: 20px;
+
+  position: relative;
+  left: 15px;
+}
+
+.orders-page .item-container {
+  width: 100%;
+  padding: 20px;
+
+  color: #f2f2f2;
+}
+
+.orders-page .item-container .info strong {
+  font-size: 30px;
+}
+
+.orders-page .item-container .orders {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  /* height: 454px; */
+  width: 767px;
+
+  margin: 20px;
+  padding: 20px;
+  padding-bottom: 40px;
+
+  border-radius: 30px;
+
+  background-color: #0339a6;
+}
+
+.orders-page .item-container .orders h1 {
+  margin-bottom: 30px;
+}
+
+.orders-page .item-container .orders div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 100%;
+
+  margin-top: 5px;
+}
+
+.orders-page .item-container .orders .footer {
+  width: 100%;
+  height: fit-content;
+  justify-content: flex-end;
+
+  margin-top: 30px;
+}
+
+.orders-page .item-container .orders .priceList {
+  align-items: flex-end;
+  width: 250px;
+}
+
+.orders-page .item-container .orders .priceList div {
+  width: fit-content;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.status-buttons {
+  width: 767px;
+
+  margin: 20px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.status-buttons button {
+  width: 150px;
+  height: 42px;
+  border-radius: 10px;
+
+  color: #fff;
+  font-weight: bolder;
+  font-size: large;
+
+  margin-top: 10px;
+}
+.status-buttons button[id="confirm"] {
+  background-color: #00eb79;
+}
+
+.status-buttons button[id="denie"] {
+  background-color: #e00101;
+}

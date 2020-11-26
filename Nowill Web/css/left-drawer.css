@@ -8,9 +8,10 @@
     #1b65a6;
 
   border: 1px solid #030303;
-  border-radius: 0px 20px 20px 0px;
+  /* border-radius: 0px 20px 20px 0px; */
   transition: 0.3s;
   overflow: hidden;
+  z-index: 10;
 }
 
 .left-drawer .image-frame {

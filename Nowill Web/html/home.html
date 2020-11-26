@@ -16,6 +16,8 @@
   </head>
 
   <body>
+
+    <!-- Left Drawer -->
     <div class="left-drawer embed">
       <div class="company">
         <div class="content">
@@ -39,7 +41,7 @@
       </div>
 
       <div class="button-list">
-        <div class="item-list" name="pedidos">
+        <div class="item-list selected" name="pedidos">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -186,7 +188,7 @@
           <h3 class="text disabled">AVALIAÇÕES</h3>
         </div>
 
-        <div class="item-list selected" name="dados">
+        <div class="item-list" name="dados">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -314,31 +316,98 @@
 
       <!-- <p>v 1.0.0</p> -->
     </div>
+    <!-- End Left Drawer -->
 
-    <div class = "poc-recebendo">
-      <h1><b>NOME - PEDIDO</b></h1>
-      <p>
-        <ul id="pedidosList">
+    <div class="body">
 
-        </ul>
-      </p>
+    <!-- Orders page -->
+    <div class="orders-page" style="display:flex;">
+      <div class="items-list">
+        <div class="search-bar">
+          <div class="container">
+            <!-- TODO: Add search icon -->
+            <input type="search" placeholder="#pedido">
+          </div>
+        </div>
+
+        <!-- Orders List -->
+        <div class="list"></div>
+      </div>
+
+      <div class="item-container">
+          <div class="info">
+            <div id="line1"></div>
+            <div id="line2"></div>
+            <div id="line3"></div>
+          </div>
+          <div class="orders">
+            <h1>PEDIDOS</h1>
+          </div>
+          <div class="status-buttons">
+            <h1>CONFIRMAR PEDIDO?</h1>
+            <div>
+              <button id="confirm" type="button" onclick="handleConfirm()">SIM</button>
+              <button id="denie" type="button" onclick="handleDenie()">NÃO</button>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- End Orders page -->
+
+    <!-- Menu page -->
+    <!-- End Menu page -->
+
+    <!-- Favorites page -->
+    <!-- End Favorites page -->
+
+    <!-- Settings page -->
+    <!-- End Settings page -->
+
+    <!-- Info page -->
+    <!-- End Info page -->
     </div>
 
+    
   </body>
+
+  <!-- Firebase Scripts -->
   <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/7.21.1/firebase-database.js"></script>
 
+  <!-- JQUERY -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <!-- Page Scripts -->
+  <script src="../js/app.js"></script>
+  <script src="../js/pedidos.js"></script>
+
+  <!-- CSS Styles -->
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/left-drawer.css" />
   <link rel="stylesheet" href="../css/switch-button.css" />
   <link rel="stylesheet" href="../css/POC.css"/>
-  <script src="../js/app.js"></script>
-  <script src="../js/pedidos.js"></script>
+  <link rel="stylesheet" href="../css/item.css"/>
+  <link rel="stylesheet" href="../css/search-bar.css"/>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+    .body{
+      margin-left: 166px;
+    }
+  </style>
+
+  <!-- Handle orders click -->
+  <script>
+    $("div.item").click((e) => {
+      e.preventDefault();
+
+      const key = e.currentTarget.attributes.key.value;
+      renderOrder(key);
+    });
+  </script>
+
 
   <!-- Switch Script -->
   <script>
@@ -354,6 +423,20 @@
       e.preventDefault();
       const name = $(this).attr("name");
       console.log(name);
+
+      switch (name) {
+        case "pedidos":
+          console.log(name);
+          $(".menu-page").attr("style", "display: block;");
+          break;
+
+        case "cardapio":
+          $(".menu-page").attr("style", "display: none;");
+          break;
+      
+        default:
+          break;
+      }
 
       const selectedButton = $(".selected");
       $(selectedButton[0]).removeClass("selected");
