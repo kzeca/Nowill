@@ -3,12 +3,15 @@ package com.fmm.nowillmobile;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -22,8 +25,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GestureDetectorCompat;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -36,6 +46,8 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
     LinearLayout fieldNome, fieldBiometria, fieldEndereco, fieldPagamento;
     TextView txtContinuar;
     private TextToSpeech textToSpeech;
+    public static Users users;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +68,9 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
                 textToSpeech.speak( getResources().getString(R.string.RegisterActivity_intro), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
+
         textToSpeech.setSpeechRate(0.8f);
-        textToSpeech.setPitch(1);
+        textToSpeech.setPitch(1f);
         gestureDetector = new GestureDetector(this, new GestureListener());
         setObjects();
         setAnimations();
@@ -73,6 +86,12 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
 
     private void setObjects() {
         optionRegister = 0;
+        users = new Users();
+        sharedPreferences = getApplicationContext().getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putFloat("voz_speed", 0.8f);
+        editor.putFloat("voz_pitch", 1f);
+        editor.commit();
         fieldNome = findViewById(R.id.activity_register_layout_nome);
         fieldBiometria = findViewById(R.id.activity_register_layout_biometria);
         fieldEndereco = findViewById(R.id.activity_register_layout_endereco);
@@ -154,38 +173,31 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             Intent intent;
-            Log.d("PESSOAL", "Peguei");
-
+            textToSpeech.stop();
             switch (optionRegister) {
                 case 0:
-                    textToSpeech.stop();
                     intent = new Intent(RegisterActivity.this, DialogPessoalActivity.class);
                     startActivity(intent);
                     break;
                     case 1:
-                        textToSpeech.stop();
                         intent = new Intent(RegisterActivity.this, DialogBiometriaActivity.class);
                         startActivity(intent);
                         break;
 
                     case 2:
-                        textToSpeech.stop();
                         intent = new Intent(RegisterActivity.this, DialogEnderecoActivity.class);
                         startActivity(intent);
                         break;
 
                     case 3:
-                        textToSpeech.stop();
                         intent = new Intent(RegisterActivity.this, DialogPagamentoActivity.class);
                         startActivity(intent);
-                        Toast.makeText(getApplicationContext(), "Campo do pagamento", Toast.LENGTH_SHORT).show();
                         break;
 
                     case 4:
-                        textToSpeech.stop();
+                        Log.d("Barbaridade", "onDoubleTap: "+sharedPreferences.getString("Palavra-Passe", ""));
                         intent = new Intent(RegisterActivity.this, SearchScreen.class);
-                        startActivity(intent);
-                        finish();
+                        createUser(intent);
                         break;
                 }
 
@@ -200,6 +212,24 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         }
     }
 
+    private void createUser(Intent intent) {
+        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference("usuarios")
+                .child(android_id);
+        databaseReference.child("pessoal").child("nome").setValue(users.getNome());
+        databaseReference.child("pessoal").child("nascimento").setValue(users.getNascimento());
+        databaseReference.child("pessoal").child("cpf").setValue(users.getCpf());
+        databaseReference.child("endereco").child("rua").setValue(users.getRua());
+        databaseReference.child("endereco").child("bairro").setValue(users.getBairro());
+        databaseReference.child("endereco").child("numero").setValue(users.getNumero());
+        databaseReference.child("endereco").child("cep").setValue(users.getCep());
+        databaseReference.child("pagamento").setValue(users.getPagamento());
+        startActivity(intent);
+        finish();
+    }
+
 
     @Override
     protected void onStop() {
@@ -208,5 +238,4 @@ public class RegisterActivity extends Activity implements View.OnTouchListener {
         }
         super.onStop();
     }
-
 }

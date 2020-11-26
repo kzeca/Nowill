@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nowill Mobile</string>
+    <string name="app_name">NOWILL</string>
 
     <string name="RegisterActivity_intro">Olá! Seja muito bem-vindo ao aplicativo Nowill! Já que essa é a primeira vez que você está entrando no software, vamos começar
     configurando suas informações, essas que são extremamente necessárias para o bom uso do aplicativo. Para começar, você está
@@ -7,7 +7,7 @@
     senha para abertura do aplicativo, clique no botão que diminui seu volume! Se você gostaria que eu repetisse, pressione a tela para
     tal ação.</string>
     <string name="RegisterActivity_explicando_pessoal">Você está selecionando o campo de dados pessoais. Nele, você configurará
-    informações sobre seu nome, sua data de nascimento e seu c.p.f. Para selecioná-lo, clique duas vezes na tela. Caso queira configurar
+    informações sobre seu nome, sua data de nascimento e seu C.P.F. Para selecioná-lo, clique duas vezes na tela. Caso queira configurar
     sua senha para entrar no aplicativo, pressione o botão que diminui seu volume! Se você gostaria que eu repetisse, pressione a tela para
     tal ação.</string>
     <string name="RegisterActivity_explicando_biometria">Você está selecionando o campo da biometria. Nele, você configurará
@@ -32,4 +32,164 @@
     informações que você passou nos campos acima! Se você deseja começar a usar o aplicativo, pressione duas vezes a tela! Caso queira configurar seu método
     de pagamento, pressione o botão que aumenta seu volume! Ou então, se você deseja que eu repita todas as informações, pressione a tela para
     tal ação.</string>
+
+    <string name="DialogPessoalActivity_intro">Você está na tela de dados pessoais. Aqui, você vai preencher seus dados como nome, data de
+    nascimento e cpf. Você está selecionando o campo nome. Caso queira preenche-lo, clique duas vezes e fale seu nome. Caso queira preencher
+    o campo do dia de seu nascimento, pressione o botão que você diminui seu volume para selecionar esse campo. Caso queira voltar ao menu de
+        cadastro, arraste sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se,
+    suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogPessoalActivity_explicando_nome">Você está selecionando o campo do nome. Aqui, você deve dizer seu nome completo para que
+        essa informação fique salva no aplicativo. Caso queira preenche-lo, clique duas vezes e fale seu nome. Caso queira preencher o
+        campo do dia do seu nascimento, pressione o botão que você diminui seu volume para selecionar esse campo. Caso queira voltar ao menu
+        de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu repita todas as informações,
+        pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogPessoalActivity_explicando_dia">Você está selecionando o campo do dia do nascimento. Aqui, você deve dizer o dia do mês do seu
+    nascimento. Caso queira preenche-lo, clique duas vezes e fale esse dia. Caso queira preencher o campo de mês do seu nascimento, pressione
+    o botão que diminui seu volume para selecionar esse campo. Caso queira preencher o campo do seu nome completo, pressione o botão que aumenta
+    seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu
+    repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogPessoalActivity_explicando_mes">Você está selecionando o campo do mês do seu nascimento. Aqui, você deverá dizer o mês do seu
+    nascimento , o nome dele mesmo. Caso queira preenche-lo, clique duas vezes e fale esse mês. Caso queira preencher o campo de ano do seu
+        nascimento, pressione o botão que diminui seu volume para selecionar esse campo. Caso queira preencher o campo do dia do seu nascimento,
+        pressione o botão que aumenta seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste sua tela para cima.
+        Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas
+        quando você as confirma.</string>
+    <string name="DialogPessoalActivity_explicando_ano">Você está selecionando o campo do ano do seu nascimento. Aqui, você deve dizer o ano do seu
+    nascimento. Caso queira preenche-lo, clique duas vezes e fale esse ano. Caso queira preencher o campo do seu cpf, pressione o botão que
+        diminui seu volume para selecionar esse campo. Caso queira preencher o campo do mês do seu nascimento, pressione o botão que aumenta seu
+        volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu
+        repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogPessoalActivity_explicando_cpf">Você está selecionando o campo do c.p.f. Aqui, você deve dizer o seu c.p.f. Caso queira preenche-lo, clique
+        duas vezes e fale-o. Caso queira ir ao campo de confirmar, pressione o botão que diminui seu volume para selecionar esse campo. Caso
+        queira preencher o campo do ano do seu nascimento, pressione o botão que aumenta seu volume para selecionar esse campo. Caso queira voltar
+        ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal
+        ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogPessoalActivity_explicando_confirmar">Você está selecionando o campo confirmar. Clicando duas vezes, você confirma
+        todas as informações que você preencheu acima. Caso deseja fazer isso, clique duas vezes para isso. Caso queira preencher o campo do seu c.p.f,
+        pressione o botão que aumenta seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste sua tela para cima.
+        Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas
+        quando você as confirma.</string>
+
+    <string name="DialogBiometriaActivity_explicando_biometria">Você está selecionando o campo da biometria. Aqui, você deve provar que
+    você possui cadastro biometrico neste aparelho. Caso não tenha, por favor, faça ele por segurança. O aplicativo utiliza dessa biometria como
+    forma de provar que você é você. Se você deseja fazer isso agora, clique duas vezes na tela. Caso queira selecionar o campo confirmar,
+        pressione o botão que diminui seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste sua tela para cima.
+    Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando
+    você as confirma.</string>
+    <string name="DialogBiometriaActivity_explicando_palavra">Você está selecionando o campo da palavra-passe. Aqui, você deve falar
+    uma palavra-passe que será a forma de provar que você é você. Tente falar uma palavra que você irá se lembrar. Essa informação pode ser alterada
+    depois no menu de ajustes. Se você dseja fazer isso agora, clique duas vezes na tela. Caso queira selecionar o campo confirmar, pressione o
+    botão que você diminui seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste sua tela para cima.
+    Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando
+    você as confirma.</string>
+    <string name="DialogBiometriaActivity_explicando_confirma">Você está selecionando o campo confirmar. Clicando duas vezes, você confirma
+        todas as informações que você preencheu acima. Caso deseja fazer isso, clique duas vezes para isso. Caso queira preencher o campo que
+        verifica sua segurança, pressione o botão que aumenta seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste
+        sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações
+        só são salvas quando você as confirma.</string>
+
+    <string name="DialogEnderecoActivity_intro">Você está na tela de endereço. Aqui, você irá preencher dados como sua rua, seu bairro, número da
+    sua residência e C.E.P. para que seja mais fácil as suas compras ao longo do uso do aplicativo. Caso queira preencher a rua da sua moradia
+        pré-estabelecida, clique duas vezes na tela. Caso queira selecionar o do bairro, pressione o botão que diminui seu volume para selecionar
+    esse campo. Caso queira voltar ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu repita todas as informações,
+    pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogEnderecoActivity_explicando_rua">Você está selecionando o campo da rua. Aqui, você irá dizer a rua da sua moradia
+    pré-estabelecida. Caso queira preenche-lo, clique duas vezes na tela. Caso queira preencher o campo do seu bairro, pressione o botão que
+    diminui seu volume. Caso queira voltar ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu repita todas as
+        informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogEnderecoActivity_explicando_bairro">Você está selecionando o campo do bairro. Aqui, você deve dizer o bairro da sua
+    moradia pré-estabelecida. Caso queira preenche-lo, clique duas vezes na tela. Caso queira selecionar o campo do número da sua residência,
+    pressione o botão que diminui seu volume. Caso queira selecionar o campo da rua, pressione o botão que aumenta seu volume. Caso queira voltar
+        ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal
+        ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogEnderecoActivity_explicando_numero">Você está selecionando o campo do número. Aqui, você deve dizer o número da sua moradia
+    pré-estabelecida. Caso queira preenche-lo, clique duas vezes na tela. Caso queira selecionar o campo do C.E.P. pressione o botão que diminui
+    seu volume. Caso queira selecionar o campo do bairro, pressione o botão que aumenta seu volume. Caso queira voltar ao menu de cadastro,
+        arraste sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal
+        ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogEnderecoActivity_explicando_CEP">Você está selecionando o campo do C.E.P. Aqui, você deve dizer o C.E.P. da sua moradia
+    pré-estabelecida. Caso queira preenche-lo, clique duas vezes na tela. Caso queira selecionar o campo do confirmar, pressione o botão que
+    diminui seu volume. Caso queira selecionar o campo do número, pressione o botão que aumenta seu volume. Caso queira voltar ao menu de cadastro,
+        arraste sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal
+        ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogEnderecoActivity_explicando_confirmar">Você está selecionando o campo confirmar. Clicando duas vezes, você confirma
+        todas as informações que você preencheu acima. Caso deseja fazer isso, clique duas vezes para isso. Caso queira selecionar o campo do
+        C.E.P. , pressione o botão que aumenta seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste
+        sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações
+        só são salvas quando você as confirma.</string>
+
+    <string name="DialogPagamentoActivity_intro">Você está na tela de pagamento. Aqui, você irá selecionar o seu método de pagamento rápido para
+    as suas futuras compras no aplicativo. Clicando duas vezes na tela, você poderá selecionar este método deslizando para a esquerda, se deseja
+    que seja dinheiro, ou para a direita, se deseja que seja cartão. Pressionando o botão que você diminui o volume, você irá para o campo
+    confirmar. Caso você queira voltar ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que eu repita todas as
+    informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogPagamentoActivity_explicando_pagamento">Você está selecionando o campo do pagamento. Aqui, você deve informar o método
+    de pagamento de fácil acesso para as suas futuras compras no aplicativo. Caso queira fazer isso, clique duas vezes na tela e deslize seu dedo,
+    para esquerda se quer que a forma seja dinheiro, ou para direita se quer que a forma seja cartão. Caso queira selecionar o campo do confirmar,
+    pressione o botão que diminui seu volume Caso queira voltar ao menu de cadastro, arraste sua tela para cima. Ou então, se você deseja que
+        eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações só são salvas quando você as confirma.</string>
+    <string name="DialogPagamentoActivity_explicando_confirmar">Você está selecionando o campo confirmar. Clicando duas vezes, você confirma
+        todas as informações que você preencheu acima. Caso deseja fazer isso, clique duas vezes para isso. Caso queira selecionar o campo do
+        pagamento , pressione o botão que aumenta seu volume para selecionar esse campo. Caso queira voltar ao menu de cadastro, arraste
+        sua tela para cima. Ou então, se você deseja que eu repita todas as informações, pressione a tela para tal ação. Lembre-se, suas informações
+        só são salvas quando você as confirma.</string>
+
+    <string name="SearchScreen_intro">Olá, você está na tela de busca. Aqui, você poderá pesquisar produtos por nome e o resultado será exibido
+    a você. Clicando duas vezes na tela, você dirá ao aplicativo qual deve ser o item da sua busca. Caso você queira conferir a tela de dados do
+    usuário, deslize a seu dedo na tela da esquerda para a direita. Caso você queira conferir a tela de ajustes da minha voz, deslize seu dedo na
+    tela da direita para a esquerda. Caso você queira explorar as lojas do aplicativo, deslize seu dedo pela tela de baixo para cima. Caso você
+    queira verificar seu carrinho de compra, deslize seu dedo pela tela de cima para baixo. Se você quiser que eu repita todas as informações,
+    pressione a tela tal ação.</string>
+    <string name="SearchScreen_explicando_pesquisa">Você está na tela de busca. Aqui, você poderá pesquisar produtos por nome e o resultado será
+        exibido a você. Clicando duas vezes na tela, você dirá ao aplicativo qual deve ser o item da sua busca. Caso você queira conferir
+        a tela de dados do usuário, deslize a seu dedo na tela da esquerda para a direita. Caso você queira conferir a tela de ajustes da minha
+        voz, deslize seu dedo na tela da direita para a esquerda. Caso você queira explorar as lojas do aplicativo, deslize seu dedo pela tela
+        de baixo para cima. Caso você queira verificar seu carrinho de compra, deslize seu dedo pela tela de cima para baixo. Se você
+        quiser que eu repita todas as informações, pressione a tela tal ação.</string>
+
+    <string name="DialogEnterActivity_intro_cbio">Pressione duas vezes a tela para verificar sua biometria no aplicativo</string>
+    <string name="DialogEnterActivity_intro_sbio">Pressione duas vezes a tela e fale sua palavra-passe. Após isso, pressione botão que
+    você diminui seu volume para ir ao campo da confirmação.</string>
+    <string name="DialogEnterActivity_explicando_confirmar">Pressione duas vezes a tela e confirme a palavra-passe acima. Pressione o botão
+    que aumenta seu volume para ir ao campo da palavra-passe.</string>
+
+    <string name="ConfigActivity_intro">Você está na tela de ajustes da minha voz. Aqui, você poderá alterar configurações referentes ao volume,
+    tom e velocidade da minha voz. Clicando duas na sua tela, entrará no campo do volume da minha voz, onde, clicando com os botões de aumentar
+    e diminuir o volume, você cumprirá a função a que eles foram feitos. Se você só pressionar o botão que diminui seu volume, você irá para o
+    do tom da minha voz. Caso queira retorna ao menu de pesquisa, arraste seu dedo para cima. Se você gostaria que eu repetisse todas as
+    informações, segure seu dedo na tela para tal ação.</string>
+    <string name="ConfigActivity_explicando_volume">Você está no campo do volume. Aqui, você configurará o volume da aplicação. Caso queira fazer
+    isso, clique duas vezes na tela e use os botões de volume para aumentar e diminuir minha voz e, quando estiver em um volume agradável,
+    pressione a tela duas vezes novamente. Caso queira ir para o campo do tom de voz, pressione o botão que você diminui seu volume. Caso voltar
+    para a tela de busca, arraste seu dedo para cima. Se você gostaria que eu repetisse todas as informações, segure seu dedo na tela para
+    tal ação</string>
+    <string name="ConfigActivity_explicando_tom">Você está no campo do tom. Aqui, você configurará o tom da minha voz. Caso queira fazer isso,
+    clique duas vezes na tela e use os botões de volume para aumentar e diminuir o tom de minha voz e, quando estiver em um tom agradável,
+    pressione a tela duas vezes novamente. Caso queira ir para o campo da velocidade da voz, pressione o botão que você diminui seu volume. Caso
+    queira ir para o campo de volume da voz, pressione o botão que você aumenta seu volume. Caso voltar à tela de busca, arraste seu dedo
+    para cima. Se você gostaria que eu repetisse todas as informações, segure seu dedo na tela para tal ação.</string>
+    <string name="ConfigActivity_explicando_velocidade">Você está no campo da velocidade. Aqui, você configurará a velocidade da minha voz. Caso
+    queira fazer isso, clique duas vezes na tela e use os botões de volume para aumentar e diminuir a velocidade da minha voz e, quando estiver
+    em uma velocidade agradável, pressione a tela duas vezes novamente. Caso queira ir para o campo do tom da voz, pressione o botão que aumenta
+    seu volume. Caso queira ir à tela de busca, arraste seu para cima. Se você deseja que eu repita todas as informações, segure seu dedo na
+    tela para tal ação.</string>
+
+    <string name="DadosActivity_intro">Você está na tela de ajustes dos dados pessoais. Aqui, você consegue alterar as informações que você fez
+    no cadastro a qualquer hora! Para selecionar o campo do pessoal, clique duas vezes na tela. Caso você queira ir ao campo do endereço,
+    pressione o botão que diminui seu volume. Caso queira voltar ao menu de pesquisa, arraste seu dedo para cima. Se você deseja que eu repita
+    todas as informações, segure seu dedo na tela para tal ação.</string>
+    <string name="DadosActivity_explicando_pessoal">Você está selecionando o campo de dados pessoais. Nele, você configurará
+    informações sobre seu nome e seu C.P.F. Para selecioná-lo, clique duas vezes na tela. Caso queira ir ao campo do endereço,
+        pressione o botão que diminui seu volume! Se você gostaria que eu repetisse, pressione a tela para tal ação.</string>
+    <string name="DadosActivity_explicando_endereco">Você está selecionando o campo de endereço. Nele, você configurará informações relacionadas
+    a sua moradia de fácil acesso, como rua, bairro, número e C.E.P. Para selecioná-lo, clique duas vezes na tela. Caso queira ir ao campo método
+    de pagamento, pressione o botão que diminui seu volume. Caso queira ir ao campo do pessoal, pressione o botão que aumenta seu volume. Caso
+    queira retornar ao menu de pesquisa, arraste seu dedo para cima. Se você deseja que eu repita todas as informações, segure seu dedo na
+    tela para tal ação.</string>
+    <string name="DadosActivity_explicando_pagamento">Você está selecionando o campo do pagamento. Aqui, você configurará informações relacionadas
+    ao seu método de pagamento de fácil acesso, se será dinheiro ou cartão. para selecioná-lo, clique duas vezes na tela. Caso queira ir para o
+    campo do endereço, pressione o botão que aumenta seu volume. caso queira retornar ao menu de pesquisa, arraste seu dedo para cima. Se você
+    deseja que eu repita todas as informações, segure seu dedo na tela para tal ação.</string>
+
+
 </resources>

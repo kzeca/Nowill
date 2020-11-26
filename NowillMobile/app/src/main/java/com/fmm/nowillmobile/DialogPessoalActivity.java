@@ -1,9 +1,13 @@
 package com.fmm.nowillmobile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -13,8 +17,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -26,23 +37,51 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
     TextView fieldDia, fieldMes, fieldAno, txtConfirmar;
     int optionPessoal;
     private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 250;
+    private static int MIN_DISTANCE = 260;
     private final String TAG = "UPS";
     private static final int REQUEST_CODE_SPEECH_NOME = 0,
             REQUEST_CODE_SPEECH_DIA = 1, REQUEST_CODE_SPEECH_MES = 2,
             REQUEST_CODE_SPEECH_ANO = 3, REQUEST_CODE_SPEECH_CPF = 4;
+    private TextToSpeech textToSpeech;
+    RegisterActivity register;
+    boolean registerScreen;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_pessoal);
+        setVoice();
         setObjects();
         gestureDetector = new GestureDetector(this, new GestureListener());
         this.setFinishOnTouchOutside(false);
     }
 
+    private void setVoice() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == textToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.getDefault());
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }
+                }else{
+                    Log.e("TTS", "Initialization Failed");
+                }
+                textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                textToSpeech.speak( getResources().getString(R.string.DialogPessoalActivity_intro), TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
+    }
+
     private void setObjects() {
         optionPessoal = 0;
+        register = new RegisterActivity();
+        sharedPreferences = getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
         fieldNome = findViewById(R.id.dialog_pessoal_et_nome);
         fieldDia = findViewById(R.id.dialog_pessoal_tv_dia);
         fieldMes = findViewById(R.id.dialog_pessoal_tv_mes);
@@ -61,11 +100,13 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             if(optionPessoal != 5) {
                 optionPessoal++;
+                textToSpeech.stop();
             }
             setItemSelected();
         } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
             if(optionPessoal != 0) {
                 optionPessoal--;
+                textToSpeech.stop();
             }
             setItemSelected();
         }
@@ -75,35 +116,47 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
     private void setItemSelected() {
         switch (optionPessoal){
             case 0:
+                textToSpeech.speak( getResources().getString(R.string.DialogPessoalActivity_explicando_nome),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldNome.setBackgroundResource(R.drawable.selectborder);
                 fieldDia.setBackgroundResource(0);
                 break;
 
             case 1:
+                textToSpeech.speak( getResources().getString(R.string.DialogPessoalActivity_explicando_dia),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldDia.setBackgroundResource(R.drawable.selectborder);
                 fieldNome.setBackgroundResource(0);
                 fieldMes.setBackgroundResource(0);
                 break;
 
             case 2:
+                textToSpeech.speak( getResources().getString(R.string.DialogPessoalActivity_explicando_mes),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldMes.setBackgroundResource(R.drawable.selectborder);
                 fieldDia.setBackgroundResource(0);
                 fieldAno.setBackgroundResource(0);
                 break;
 
             case 3:
+                textToSpeech.speak( getResources().getString(R.string.DialogPessoalActivity_explicando_ano),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldAno.setBackgroundResource(R.drawable.selectborder);
                 fieldCPF.setBackgroundResource(0);
                 fieldMes.setBackgroundResource(0);
                 break;
 
             case 4:
+                textToSpeech.speak( getResources().getString(R.string.DialogPessoalActivity_explicando_cpf),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldCPF.setBackgroundResource(R.drawable.selectborder);
                 fieldAno.setBackgroundResource(0);
                 txtConfirmar.setBackgroundResource(0);
                 break;
 
             case 5:
+                textToSpeech.speak( getResources().getString(R.string.DialogPessoalActivity_explicando_confirmar),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 txtConfirmar.setBackgroundResource(R.drawable.selectborder);
                 fieldCPF.setBackgroundResource(0);
                 break;
@@ -148,6 +201,7 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
                     }
                     else{
                         Log.d(TAG, "Top Swipe");
+                        textToSpeech.stop();
                         finish();
                     }
                 }
@@ -160,6 +214,7 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             Intent intent;
+            textToSpeech.stop();
             switch (optionPessoal){
                 case 0:
                     intent = speak();
@@ -207,7 +262,20 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
                     break;
 
                 case 5:
-                    finish();
+                    if(registerScreen) {
+                        register.users.setNome(fieldNome.getText().toString());
+                        register.users.setNascimento(fieldDia.getText().toString() + " " + fieldMes.getText().toString() + " "
+                                + fieldAno.getText().toString());
+                        register.users.setCpf(fieldCPF.getText().toString());
+                        finish();
+                    }else{
+                        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                                Settings.Secure.ANDROID_ID);
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+                        databaseReference.child(android_id).child("pessoal").child("nome").setValue(fieldNome.getText().toString());
+                        databaseReference.child(android_id).child("pessoal").child("cpf").setValue(fieldCPF.getText().toString());
+                        finish();
+                    }
                     break;
             }
 
@@ -217,7 +285,8 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
         @Override
         public void onLongPress(MotionEvent e) {
             super.onLongPress(e);
-            Log.d(TAG, "Bate-segura");
+            textToSpeech.stop();
+            setItemSelected();
         }
     }
 
@@ -237,43 +306,84 @@ public class DialogPessoalActivity extends Activity implements View.OnTouchListe
             case REQUEST_CODE_SPEECH_NOME:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldNome.setText(result.get(0));
+                    String nome = result.get(0);
+                    textToSpeech.speak("Seu nome é: "+result.get(0), TextToSpeech.QUEUE_FLUSH, null);
+                    fieldNome.setText(nome.trim());
                 }
                 break;
 
             case REQUEST_CODE_SPEECH_DIA:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldDia.setText(result.get(0));
+                    String dia = result.get(0);
+                    textToSpeech.speak("O dia do seu nascimento é: "+result.get(0), TextToSpeech.QUEUE_FLUSH, null);
+                    fieldDia.setText(dia.trim());
                 }
                 break;
 
             case REQUEST_CODE_SPEECH_MES:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldMes.setText(result.get(0));
+                    String mes = result.get(0);
+                    textToSpeech.speak("O mês do seu nascimento é: "+result.get(0), TextToSpeech.QUEUE_FLUSH, null);
+                    fieldMes.setText(mes.trim());
                 }
                 break;
 
             case REQUEST_CODE_SPEECH_ANO:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldAno.setText(result.get(0));
+                    String ano = result.get(0);
+                    textToSpeech.speak("O ano do seu nascimento é: "+result.get(0), TextToSpeech.QUEUE_FLUSH, null);
+                    fieldAno.setText(ano.trim());
                 }
                 break;
 
             case REQUEST_CODE_SPEECH_CPF:
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    fieldCPF.setText(result.get(0));
+                    String cpf = result.get(0);
+                    cpf = cpf.replace(" ", "");
+                    cpf = cpf.replace("/", "");
+                    cpf = cpf.replace("e", "");
+                    cpf = cpf.replace("d", "");
+                    textToSpeech.speak("O seu c.p.f. é, em número: "+cpf, TextToSpeech.QUEUE_FLUSH, null);
+                    fieldCPF.setText(cpf.trim());
                 }
                 break;
         }
     }
-    
+
+    @Override
+    protected void onStop() {
+        if(textToSpeech != null){
+            textToSpeech.stop();
+        }
+        super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("usuarios").child(android_id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    fieldNome.setText(snapshot.child("pessoal").child("nome").getValue().toString());
+                    fieldCPF.setText(snapshot.child("pessoal").child("cpf").getValue().toString());
+                    registerScreen = false;
+                }else {
+                    registerScreen = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        super.onStart();
+    }
 }

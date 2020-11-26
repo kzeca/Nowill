@@ -11,26 +11,41 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".DialogPagamentoActivity"
+        <activity
+            android:name=".DialogEnterActivity"
             android:configChanges="orientation"
-            android:screenOrientation="sensor"
-            android:theme="@style/Theme.UserDialog"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Dialogs" />
+        <activity
+            android:name=".DialogPagamentoActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.UserDialog" />
         <activity
             android:name=".DialogEnderecoActivity"
             android:configChanges="orientation"
-            android:screenOrientation="sensor"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.UserDialog" />
         <activity
             android:name=".DialogBiometriaActivity"
             android:configChanges="orientation"
-            android:screenOrientation="sensor"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Dialogs" />
-        <activity android:name=".ConfigActivity" />
-        <activity android:name=".DadosActivity" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".SearchScreen" />
-        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".ConfigActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DadosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +56,7 @@
         <activity
             android:name=".DialogPessoalActivity"
             android:configChanges="orientation"
-            android:screenOrientation="sensor"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.UserDialog" />
     </application>
 
