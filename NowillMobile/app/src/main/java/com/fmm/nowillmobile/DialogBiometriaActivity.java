@@ -69,6 +69,10 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
                 }
                 textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
                 textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                if(bioEx) textToSpeech.speak( getResources().getString(R.string.DialogBiometriaActivity_explicando_biometria),
+                        TextToSpeech.QUEUE_FLUSH, null);
+                else textToSpeech.speak( getResources().getString(R.string.DialogBiometriaActivity_explicando_palavra),
+                        TextToSpeech.QUEUE_FLUSH, null);
             }
         });
     }
