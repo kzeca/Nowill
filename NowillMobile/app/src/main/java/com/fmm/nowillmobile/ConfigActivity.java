@@ -3,14 +3,20 @@ package com.fmm.nowillmobile;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import java.util.Locale;
 
 public class ConfigActivity extends Activity implements View.OnTouchListener {
 
@@ -19,6 +25,9 @@ public class ConfigActivity extends Activity implements View.OnTouchListener {
     private static int MIN_DISTANCE = 250;
     private int optionConfig;
     LinearLayout fieldTom, fieldVolume, fieldVelocidade;
+    SharedPreferences sharedPreferences;
+    private TextToSpeech textToSpeech;
+    boolean click = false, volume = false, pitch = false, speed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +35,34 @@ public class ConfigActivity extends Activity implements View.OnTouchListener {
         setContentView(R.layout.activity_config);
         gestureDetector = new GestureDetector(this, new GestureListener());
         setObjects();
+        setVoice();
         setAnimations();
+    }
+
+    private void setVoice() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == textToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.getDefault());
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }
+                }else{
+                    Log.e("TTS", "Initialization Failed");
+                }
+                textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                textToSpeech.speak( getResources().getString(R.string.ConfigActivity_intro),
+                        TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
     }
 
     private void setObjects() {
         optionConfig = 0;
+        sharedPreferences = getApplicationContext().getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
         fieldVolume = findViewById(R.id.activity_config_layout_volume);
         fieldTom = findViewById(R.id.activity_config_layout_tom);
         fieldVelocidade = findViewById(R.id.activity_config_layout_velocidade);
@@ -47,33 +79,89 @@ public class ConfigActivity extends Activity implements View.OnTouchListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            if(optionConfig != 2) {
-                optionConfig++;
+            textToSpeech.stop();
+            if(click){
+                if(speed){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putFloat("voz_speed", sharedPreferences.getFloat("voz_speed", 0.8f)-0.1f);
+                    editor.commit();
+                    textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                    textToSpeech.speak( "Testando minha velocidade de fala",
+                            TextToSpeech.QUEUE_FLUSH, null);
+                }else if(pitch){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putFloat("voz_speed", (sharedPreferences.getFloat("voz_pitch", 1)-0.1f));
+                    editor.commit();
+                    Log.d("TESTANDO", "TOM: "+sharedPreferences.getFloat("voz_pitch", 1));
+                    textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                    textToSpeech.speak( "Testando o tom de minha voz",
+                            TextToSpeech.QUEUE_FLUSH, null);
+                }else if(volume){
+                    textToSpeech.speak( "Testando o volume de minha voz",
+                            TextToSpeech.QUEUE_FLUSH, null);
+                }
             }
-            setItemSelected();
-        } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-            if(optionConfig != 0) {
-                optionConfig--;
+            else {
+                if (optionConfig != 2) {
+                    optionConfig++;
+                }
+                setItemSelected();
             }
-            setItemSelected();
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            textToSpeech.stop();
+            if(click){
+                if(speed){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putFloat("voz_speed", sharedPreferences.getFloat("voz_speed", 0.8f)+0.1f);
+                    editor.commit();
+                    textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                    textToSpeech.speak( "Testando minha velocidade de fala",
+                            TextToSpeech.QUEUE_FLUSH, null);
+                }else if(pitch){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putFloat("voz_speed", (sharedPreferences.getFloat("voz_pitch", 1)+0.1f));
+                    editor.commit();
+                    Log.d("TESTANDO", "TOM: "+sharedPreferences.getFloat("voz_pitch", 1));
+                    textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                    textToSpeech.speak( "Testando o tom de minha voz",
+                            TextToSpeech.QUEUE_FLUSH, null);
+                }else if(volume){
+                    textToSpeech.speak( "Testando o volume de minha voz",
+                            TextToSpeech.QUEUE_FLUSH, null);
+                }
+            }else {
+                if (optionConfig != 0) {
+                    optionConfig--;
+                }
+                setItemSelected();
+            }
         }
-        return true;
+
+
+        if(!volume) return true;
+        else return super.onKeyDown(keyCode, event);
     }
 
     private void setItemSelected() {
         switch (optionConfig){
             case 0:
+                textToSpeech.speak( getResources().getString(R.string.ConfigActivity_explicando_volume),
+                    TextToSpeech.QUEUE_FLUSH, null);
                 fieldVolume.setBackgroundResource(R.drawable.selectborder);
                 fieldTom.setBackgroundResource(0);
                 break;
 
             case 1:
+                textToSpeech.speak( getResources().getString(R.string.ConfigActivity_explicando_tom),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldTom.setBackgroundResource(R.drawable.selectborder);
                 fieldVolume.setBackgroundResource(0);
                 fieldVelocidade.setBackgroundResource(0);
                 break;
 
             case 2:
+                textToSpeech.speak( getResources().getString(R.string.ConfigActivity_explicando_velocidade),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldVelocidade.setBackgroundResource(R.drawable.selectborder);
                 fieldVolume.setBackgroundResource(0);
                 fieldTom.setBackgroundResource(0);
@@ -148,7 +236,51 @@ public class ConfigActivity extends Activity implements View.OnTouchListener {
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+            textToSpeech.stop();
+            if(click){
+                click = false;
+                volume = false;
+                pitch = false;
+                speed = false;
+
+            }else{
+                click = true;
+                switch (optionConfig){
+                    case 0:
+                        volume = true;
+                        break;
+
+                    case 1:
+                        pitch = true;
+                        break;
+
+                    case 2:
+                        speed = true;
+                        break;
+                }
+            }
             return super.onDoubleTap(e);
         }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            if(!click){
+                textToSpeech.stop();
+                setItemSelected();
+            }else{
+                textToSpeech.speak( "Você ainda está selecionando algo. Clique duas vezes na tela e, depois disso, segure o dedo na tela " +
+                                "para mais informações.",
+                        TextToSpeech.QUEUE_FLUSH, null);
+            }
+            super.onLongPress(e);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        if(textToSpeech != null){
+            textToSpeech.stop();
+        }
+        super.onStop();
     }
 }

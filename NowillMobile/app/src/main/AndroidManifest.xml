@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DialogEnterActivity"
-            android:theme="@style/Theme.Dialogs"
+        <activity
+            android:name=".DialogEnterActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Dialogs" />
         <activity
             android:name=".DialogPagamentoActivity"
             android:configChanges="orientation"

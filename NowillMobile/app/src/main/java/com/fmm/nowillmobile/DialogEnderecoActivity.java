@@ -1,8 +1,11 @@
 package com.fmm.nowillmobile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -14,7 +17,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -32,6 +42,8 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
             REQUEST_CODE_SPEECH_CEP= 3;
     private TextToSpeech textToSpeech;
     RegisterActivity register;
+    boolean registerScreen;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +68,8 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
                 }else{
                     Log.e("TTS", "Initialization Failed");
                 }
-                textToSpeech.setSpeechRate(0.8f);
-                textToSpeech.setPitch(1);
+                textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
                 textToSpeech.speak( getResources().getString(R.string.DialogEnderecoActivity_intro), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
@@ -66,6 +78,7 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
     private void setObjects() {
         optionEndereco = 0;
         register = new RegisterActivity();
+        sharedPreferences = getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
         fieldRua = findViewById(R.id.dialog_endereco_tv_rua);
         fieldBairro = findViewById(R.id.dialog_endereco_tv_bairro);
         fieldNumero = findViewById(R.id.dialog_endereco_tv_numero);
@@ -228,11 +241,22 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
 
 
                 case 4:
-                    register.users.setRua(fieldRua.getText().toString());
-                    register.users.setBairro(fieldBairro.getText().toString());
-                    register.users.setNumero(fieldNumero.getText().toString());
-                    register.users.setCep(fieldCEP.getText().toString());
-                    finish();
+                    if(registerScreen) {
+                        register.users.setRua(fieldRua.getText().toString());
+                        register.users.setBairro(fieldBairro.getText().toString());
+                        register.users.setNumero(fieldNumero.getText().toString());
+                        register.users.setCep(fieldCEP.getText().toString());
+                        finish();
+                    }else{
+                        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                                Settings.Secure.ANDROID_ID);
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
+                        databaseReference.child(android_id).child("endereco").child("rua").setValue(fieldRua.getText().toString());
+                        databaseReference.child(android_id).child("endereco").child("bairro").setValue(fieldBairro.getText().toString());
+                        databaseReference.child(android_id).child("endereco").child("cep").setValue(fieldCEP.getText().toString());
+                        databaseReference.child(android_id).child("endereco").child("numero").setValue(fieldNumero.getText().toString());
+                        finish();
+                    }
                     break;
             }
             return super.onDoubleTap(e);
@@ -263,6 +287,8 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
                 if(resultCode == RESULT_OK && data != null){
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String rua = result.get(0);
+                    textToSpeech.speak("A rua da residência é: "+rua,
+                            TextToSpeech.QUEUE_FLUSH, null);
                     rua = rua.trim();
                     fieldRua.setText(rua);
                 }
@@ -273,6 +299,8 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String bairro = result.get(0);
                     bairro = bairro.trim();
+                    textToSpeech.speak("O bairro da residência é: "+bairro,
+                            TextToSpeech.QUEUE_FLUSH, null);
                     fieldBairro.setText(bairro);
                 }
                 break;
@@ -282,6 +310,12 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String cep = result.get(0);
                     cep = cep.trim();
+                    cep = cep.replace(" ", "");
+                    cep = cep.replace("-", "");
+                    cep = cep.replace("/", "");
+                    cep = cep.replace("e", "");
+                    textToSpeech.speak("O C.E.P. da residência é: "+cep,
+                            TextToSpeech.QUEUE_FLUSH, null);
                     fieldCEP.setText(cep);
                 }
                 break;
@@ -291,6 +325,8 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     String numero = result.get(0);
                     numero = numero.trim();
+                    textToSpeech.speak("O número da residência é: "+numero,
+                            TextToSpeech.QUEUE_FLUSH, null);
                     fieldNumero.setText(numero);
                 }
                 break;
@@ -303,6 +339,33 @@ public class DialogEnderecoActivity extends Activity implements View.OnTouchList
             textToSpeech.stop();
         }
         super.onStop();
+    }
+
+    @Override
+    protected void onStart() {
+        String android_id = Settings.Secure.getString(getApplicationContext().getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("usuarios").child(android_id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    fieldRua.setText(snapshot.child("endereco").child("rua").getValue().toString());
+                    fieldBairro.setText(snapshot.child("endereco").child("bairro").getValue().toString());
+                    fieldCEP.setText(snapshot.child("endereco").child("cep").getValue().toString());
+                    fieldNumero.setText(snapshot.child("endereco").child("numero").getValue().toString());
+                    registerScreen = false;
+                }else {
+                    registerScreen = true;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        super.onStart();
     }
 
 }

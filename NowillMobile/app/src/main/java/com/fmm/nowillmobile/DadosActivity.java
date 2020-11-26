@@ -4,14 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import java.util.Locale;
 
 public class DadosActivity extends Activity implements View.OnTouchListener {
 
@@ -20,6 +26,8 @@ public class DadosActivity extends Activity implements View.OnTouchListener {
     private static int MIN_DISTANCE = 250;
     private int optionDados;
     LinearLayout fieldPessoal, fieldEndereco, fieldPagamento;
+    private TextToSpeech textToSpeech;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +36,33 @@ public class DadosActivity extends Activity implements View.OnTouchListener {
         gestureDetector = new GestureDetector(this, new GestureListener());
         setAnimations();
         setObjects();
+        setVoice();
+    }
+
+    private void setVoice() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == textToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.getDefault());
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }
+                }else{
+                    Log.e("TTS", "Initialization Failed");
+                }
+                textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                textToSpeech.speak( getResources().getString(R.string.DadosActivity_intro),
+                        TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
     }
 
     private void setObjects() {
         optionDados = 0;
+        sharedPreferences = getApplicationContext().getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
         fieldPessoal = findViewById(R.id.activity_dados_layout_nome);
         fieldEndereco = findViewById(R.id.activity_dados_layout_endereco);
         fieldPagamento = findViewById(R.id.activity_dados_layout_pagamento);
@@ -48,11 +79,13 @@ public class DadosActivity extends Activity implements View.OnTouchListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            textToSpeech.stop();
             if(optionDados != 2) {
                 optionDados++;
             }
             setItemSelected();
         } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            textToSpeech.stop();
             if(optionDados != 0) {
                 optionDados--;
             }
@@ -64,17 +97,23 @@ public class DadosActivity extends Activity implements View.OnTouchListener {
     private void setItemSelected() {
         switch(optionDados){
             case 0:
+                textToSpeech.speak( getResources().getString(R.string.DadosActivity_explicando_pessoal),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldPessoal.setBackgroundResource(R.drawable.selectborder);
                 fieldEndereco.setBackgroundResource(0);
                 break;
 
             case 1:
+                textToSpeech.speak( getResources().getString(R.string.DadosActivity_explicando_endereco),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldEndereco.setBackgroundResource(R.drawable.selectborder);
                 fieldPessoal.setBackgroundResource(0);
                 fieldPagamento.setBackgroundResource(0);
                 break;
 
             case 2:
+                textToSpeech.speak( getResources().getString(R.string.DadosActivity_explicando_pagamento),
+                        TextToSpeech.QUEUE_FLUSH, null);
                 fieldPagamento.setBackgroundResource(R.drawable.selectborder);
                 fieldPessoal.setBackgroundResource(0);
                 fieldEndereco.setBackgroundResource(0);
@@ -148,8 +187,40 @@ public class DadosActivity extends Activity implements View.OnTouchListener {
     private class GestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onDoubleTap(MotionEvent e) {
+            Intent intent;
+            textToSpeech.stop();
+            switch (optionDados){
+                case 0:
+                    intent = new Intent(DadosActivity.this, DialogPessoalActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case 1:
+                    intent = new Intent(DadosActivity.this, DialogEnderecoActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case 2:
+                    intent = new Intent(DadosActivity.this, DialogPagamentoActivity.class);
+                    startActivity(intent);
+                    break;
+            }
             return super.onDoubleTap(e);
+        }
+
+        @Override
+        public void onLongPress(MotionEvent e) {
+            textToSpeech.stop();
+            setItemSelected();
+            super.onLongPress(e);
         }
     }
 
+    @Override
+    protected void onStop() {
+        if(textToSpeech != null){
+            textToSpeech.stop();
+        }
+        super.onStop();
+    }
 }

@@ -67,8 +67,8 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
                 }else{
                     Log.e("TTS", "Initialization Failed");
                 }
-                textToSpeech.setSpeechRate(0.8f);
-                textToSpeech.setPitch(1);
+                textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
             }
         });
     }
@@ -90,6 +90,7 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
 
     private void setObjects() {
         optionBiometria = 0;
+        sharedPreferences = getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
         fieldConfirma = findViewById(R.id.dialog_biometria_tv_confirma);
         fieldPalavra = findViewById(R.id.dialog_biometria_tv_palavra);
         fieldBiometria = findViewById(R.id.dialog_biometria_tv_verificar_biometria);
@@ -278,6 +279,8 @@ public class DialogBiometriaActivity extends AppCompatActivity implements View.O
                     String palavra = result.get(0).trim();
                     palavra = palavra.toLowerCase();
                     palavra = palavra.replace(" ", "");
+                    textToSpeech.speak("Sua palavra-passe é: "+palavra,
+                            TextToSpeech.QUEUE_FLUSH, null);
                     fieldPalavra.setText(palavra);
                 }
                 break;

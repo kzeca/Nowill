@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nowill Mobile</string>
+    <string name="app_name">NOWILL</string>
 
     <string name="RegisterActivity_intro">Olá! Seja muito bem-vindo ao aplicativo Nowill! Já que essa é a primeira vez que você está entrando no software, vamos começar
     configurando suas informações, essas que são extremamente necessárias para o bom uso do aplicativo. Para começar, você está
@@ -152,6 +152,44 @@
     você diminui seu volume para ir ao campo da confirmação.</string>
     <string name="DialogEnterActivity_explicando_confirmar">Pressione duas vezes a tela e confirme a palavra-passe acima. Pressione o botão
     que aumenta seu volume para ir ao campo da palavra-passe.</string>
+
+    <string name="ConfigActivity_intro">Você está na tela de ajustes da minha voz. Aqui, você poderá alterar configurações referentes ao volume,
+    tom e velocidade da minha voz. Clicando duas na sua tela, entrará no campo do volume da minha voz, onde, clicando com os botões de aumentar
+    e diminuir o volume, você cumprirá a função a que eles foram feitos. Se você só pressionar o botão que diminui seu volume, você irá para o
+    do tom da minha voz. Caso queira retorna ao menu de pesquisa, arraste seu dedo para cima. Se você gostaria que eu repetisse todas as
+    informações, segure seu dedo na tela para tal ação.</string>
+    <string name="ConfigActivity_explicando_volume">Você está no campo do volume. Aqui, você configurará o volume da aplicação. Caso queira fazer
+    isso, clique duas vezes na tela e use os botões de volume para aumentar e diminuir minha voz e, quando estiver em um volume agradável,
+    pressione a tela duas vezes novamente. Caso queira ir para o campo do tom de voz, pressione o botão que você diminui seu volume. Caso voltar
+    para a tela de busca, arraste seu dedo para cima. Se você gostaria que eu repetisse todas as informações, segure seu dedo na tela para
+    tal ação</string>
+    <string name="ConfigActivity_explicando_tom">Você está no campo do tom. Aqui, você configurará o tom da minha voz. Caso queira fazer isso,
+    clique duas vezes na tela e use os botões de volume para aumentar e diminuir o tom de minha voz e, quando estiver em um tom agradável,
+    pressione a tela duas vezes novamente. Caso queira ir para o campo da velocidade da voz, pressione o botão que você diminui seu volume. Caso
+    queira ir para o campo de volume da voz, pressione o botão que você aumenta seu volume. Caso voltar à tela de busca, arraste seu dedo
+    para cima. Se você gostaria que eu repetisse todas as informações, segure seu dedo na tela para tal ação.</string>
+    <string name="ConfigActivity_explicando_velocidade">Você está no campo da velocidade. Aqui, você configurará a velocidade da minha voz. Caso
+    queira fazer isso, clique duas vezes na tela e use os botões de volume para aumentar e diminuir a velocidade da minha voz e, quando estiver
+    em uma velocidade agradável, pressione a tela duas vezes novamente. Caso queira ir para o campo do tom da voz, pressione o botão que aumenta
+    seu volume. Caso queira ir à tela de busca, arraste seu para cima. Se você deseja que eu repita todas as informações, segure seu dedo na
+    tela para tal ação.</string>
+
+    <string name="DadosActivity_intro">Você está na tela de ajustes dos dados pessoais. Aqui, você consegue alterar as informações que você fez
+    no cadastro a qualquer hora! Para selecionar o campo do pessoal, clique duas vezes na tela. Caso você queira ir ao campo do endereço,
+    pressione o botão que diminui seu volume. Caso queira voltar ao menu de pesquisa, arraste seu dedo para cima. Se você deseja que eu repita
+    todas as informações, segure seu dedo na tela para tal ação.</string>
+    <string name="DadosActivity_explicando_pessoal">Você está selecionando o campo de dados pessoais. Nele, você configurará
+    informações sobre seu nome e seu C.P.F. Para selecioná-lo, clique duas vezes na tela. Caso queira ir ao campo do endereço,
+        pressione o botão que diminui seu volume! Se você gostaria que eu repetisse, pressione a tela para tal ação.</string>
+    <string name="DadosActivity_explicando_endereco">Você está selecionando o campo de endereço. Nele, você configurará informações relacionadas
+    a sua moradia de fácil acesso, como rua, bairro, número e C.E.P. Para selecioná-lo, clique duas vezes na tela. Caso queira ir ao campo método
+    de pagamento, pressione o botão que diminui seu volume. Caso queira ir ao campo do pessoal, pressione o botão que aumenta seu volume. Caso
+    queira retornar ao menu de pesquisa, arraste seu dedo para cima. Se você deseja que eu repita todas as informações, segure seu dedo na
+    tela para tal ação.</string>
+    <string name="DadosActivity_explicando_pagamento">Você está selecionando o campo do pagamento. Aqui, você configurará informações relacionadas
+    ao seu método de pagamento de fácil acesso, se será dinheiro ou cartão. para selecioná-lo, clique duas vezes na tela. Caso queira ir para o
+    campo do endereço, pressione o botão que aumenta seu volume. caso queira retornar ao menu de pesquisa, arraste seu dedo para cima. Se você
+    deseja que eu repita todas as informações, segure seu dedo na tela para tal ação.</string>
 
 
 </resources>

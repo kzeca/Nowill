@@ -14,6 +14,7 @@ import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -26,7 +27,7 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
     private float x1, x2, y1, y2;
-    private static int MIN_DISTANCE = 260;
+    private static int MIN_DISTANCE = 250;
     TextToSpeech textToSpeech;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
     SharedPreferences sharedPreferences;
@@ -73,6 +74,19 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
         animationDrawable.start();
     }
 
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            textToSpeech.stop();
+            textToSpeech.speak( "Assim não vai diminuir o volume. Se deseja isso, arraste da direita para esquerda para abrir a tela" +
+                            " de ajustes", TextToSpeech.QUEUE_FLUSH, null);
+        } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
+            textToSpeech.stop();
+            textToSpeech.speak( "Assim não vai aumentar o volume. Se deseja isso, arraste da direita para esquerda para abrir a tela" +
+                            " de ajustes", TextToSpeech.QUEUE_FLUSH, null);
+        }
+        return true;
+    }
+
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         return false;
@@ -101,6 +115,7 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
 
                     // Detect left to right swipe
                     if(x2 > x1){
+                        textToSpeech.stop();
                         Intent intent = new Intent(SearchScreen.this, DadosActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_rigth);
@@ -108,6 +123,7 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
                     }
                     else {
                         // Detect rigth to left swipe
+                        textToSpeech.stop();
                         Intent intent = new Intent(SearchScreen.this, ConfigActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_rigth, R.anim.slide_out_left);
