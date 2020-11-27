@@ -1,8 +1,12 @@
 package com.fmm.nowillmobile;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,33 +21,33 @@ import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class SearchScreen extends Activity implements View.OnTouchListener {
+public class LojasActivity extends Activity implements View.OnTouchListener {
 
     GestureDetector gestureDetector;
     private float x1, x2, y1, y2;
     private static int MIN_DISTANCE = 250;
     TextToSpeech textToSpeech;
-    private static final int REQUEST_CODE_SPEECH_INPUT = 1;
     SharedPreferences sharedPreferences;
+    TextView txtClasse;
+    ImageView imgClasse;
+    int optionClasse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        setVoice();
-        setObjects();
-        gestureDetector = new GestureDetector(this, new GestureListener());
+        setContentView(R.layout.activity_lojas);
         setAnimations();
-    }
-
-    private void setObjects() {
-        sharedPreferences = getApplicationContext().getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
+        setObjects();
+        setVoice();
+        gestureDetector = new GestureDetector(this, new GestureListener());
     }
 
     private void setVoice() {
@@ -61,13 +65,21 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
                 }
                 textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
                 textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
-                textToSpeech.speak( getResources().getString(R.string.SearchScreen_intro), TextToSpeech.QUEUE_FLUSH, null);
+                textToSpeech.speak( getResources().getString(R.string.LojasActivity_intro), TextToSpeech.QUEUE_FLUSH, null);
             }
         });
     }
 
+    private void setObjects() {
+        optionClasse = 0;
+        sharedPreferences = getApplicationContext().getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
+        txtClasse = findViewById(R.id.activity_lojas_tv_classes);
+        imgClasse = findViewById(R.id.activity_lojas_img_classe);
+    }
+
+
     private void setAnimations() {
-        ConstraintLayout constraintLayout = findViewById(R.id.activity_search_layout);
+        ConstraintLayout constraintLayout = findViewById(R.id.activity_lojas_layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
@@ -75,15 +87,8 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            textToSpeech.stop();
-            textToSpeech.speak( "Assim não vai diminuir o volume. Se deseja isso, arraste da direita para esquerda para abrir a tela" +
-                            " de ajustes", TextToSpeech.QUEUE_FLUSH, null);
-        } else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-            textToSpeech.stop();
-            textToSpeech.speak( "Assim não vai aumentar o volume. Se deseja isso, arraste da direita para esquerda para abrir a tela" +
-                            " de ajustes", TextToSpeech.QUEUE_FLUSH, null);
-        }
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) ;
+        else if(keyCode == KeyEvent.KEYCODE_VOLUME_UP);
         return true;
     }
 
@@ -115,19 +120,41 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
 
                     // Detect left to right swipe
                     if(x2 > x1){
-                        textToSpeech.stop();
-                        Intent intent = new Intent(SearchScreen.this, DadosActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_rigth);
-                        finish();
+                        switch (optionClasse){
+                            case 0:
+                                optionClasse += 2;
+                                txtClasse.setText("SERVIÇOS");
+                                imgClasse.setImageResource(R.drawable.servicos);
+                                break;
+                            case 1:
+                                optionClasse--;
+                                txtClasse.setText("RESTAURANTES");
+                                imgClasse.setImageResource(R.drawable.restaurantes);
+                                break;
+                            case 2:
+                                optionClasse--;
+                                txtClasse.setText("SUPERMERCADOS");
+                                imgClasse.setImageResource(R.drawable.supermercados);
+                        }
                     }
                     else {
                         // Detect rigth to left swipe
-                        textToSpeech.stop();
-                        Intent intent = new Intent(SearchScreen.this, ConfigActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_rigth, R.anim.slide_out_left);
-                        finish();
+                        switch (optionClasse){
+                            case 2:
+                                optionClasse -= 2;
+                                txtClasse.setText("RESTAURANTES");
+                                imgClasse.setImageResource(R.drawable.restaurantes);
+                                break;
+                            case 1:
+                                optionClasse++;
+                                txtClasse.setText("SERVIÇOS");
+                                imgClasse.setImageResource(R.drawable.servicos);
+                                break;
+                            case 0:
+                                optionClasse++;
+                                txtClasse.setText("SUPERMERCADOS");
+                                imgClasse.setImageResource(R.drawable.supermercados);
+                        }
                     }
                 }
                 else if(Math.abs(valueY) > MIN_DISTANCE){
@@ -141,7 +168,7 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
                     }
                     else{
                         textToSpeech.stop();
-                        Intent intent = new Intent(SearchScreen.this, LojasActivity.class);
+                        Intent intent = new Intent(LojasActivity.this, SearchScreen.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_up);
                         finish();
@@ -156,62 +183,40 @@ public class SearchScreen extends Activity implements View.OnTouchListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             textToSpeech.stop();
-            speakSearch();
+            switch (optionClasse){
+                case 0:
+                    Toast.makeText(getApplicationContext(), "RESTAURANTES", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(getApplicationContext(), "SUPERMERCADOS", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    Toast.makeText(getApplicationContext(), "SERVIÇOS", Toast.LENGTH_SHORT).show();
+                    break;
+            }
             return super.onDoubleTap(e);
         }
 
-        void speakSearch(){
-            Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Something");
-
-            try{
-                startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
-            }catch (Exception e){
-                Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }
 
         @Override
         public void onLongPress(MotionEvent e) {
             textToSpeech.stop();
-            textToSpeech.speak( getResources().getString(R.string.SearchScreen_explicando_pesquisa),
-                    TextToSpeech.QUEUE_FLUSH, null);
+            switch (optionClasse){
+                case 0:
+                    textToSpeech.speak( getResources().getString(R.string.LojasActivity_explicando_restaurantes),
+                            TextToSpeech.QUEUE_FLUSH, null);
+                    break;
+                case 1:
+                    textToSpeech.speak( getResources().getString(R.string.LojasActivity_explicando_supermercados),
+                            TextToSpeech.QUEUE_FLUSH, null);
+                    break;
+                case 2:
+                    textToSpeech.speak( getResources().getString(R.string.LojasActivity_explicando_serviços),
+                            TextToSpeech.QUEUE_FLUSH, null);
+                    break;
+            }
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode){
-            case REQUEST_CODE_SPEECH_INPUT:
-                if(resultCode == RESULT_OK && data != null){
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    Log.d("BAH", result.get(0));
-                    Intent intent = new Intent(SearchScreen.this, ResultActivity.class);
-                    intent.putExtra("RESULTADO", result.get(0));
-                    startActivity(intent);
-                    finish();
-                }
-                break;
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        if(textToSpeech != null){
-            textToSpeech.stop();
-        }
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        if(textToSpeech != null) {
-            textToSpeech.stop();
-        }
-        super.onDestroy();
-    }
 }

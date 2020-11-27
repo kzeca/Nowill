@@ -192,4 +192,22 @@
     deseja que eu repita todas as informações, segure seu dedo na tela para tal ação.</string>
 
 
+    <string name="LojasActivity_intro">Você está na tela das lojas. Nela, você terá a disposição os tipos de estabelecimentos
+        comerciais que o aplicativo apresenta, como restaurantes, supermercados e serviços. Você está selecionando, inicialmente, restaurantes.
+    Se você deseja ver estabelecimentos relacionadas a isso, clique duas vezes na tela. Caso queira selecionar supermercados, arraste o dedo
+    para esquerda. Caso queira selecionar serviços, arraste o dedo para a direita. Se você quiser que eu repita todas as informações, pressione o
+    seu dedo na tela para tal ação.</string>
+    <string name="LojasActivity_explicando_restaurantes">Você está selecionando restaurantes.
+    Se você deseja ver estabelecimentos relacionadas a isso, clique duas vezes na tela. Caso queira selecionar supermercados, arraste o dedo
+    para esquerda. Caso queira selecionar serviços, arraste o dedo para a direita. Se você quiser que eu repita todas as informações, pressione o
+    seu dedo na tela para tal ação.</string>
+    <string name="LojasActivity_explicando_supermercados">Você está selecionando supermercados.
+    Se você deseja ver estabelecimentos relacionadas a isso, clique duas vezes na tela. Caso queira selecionar serviços, arraste o dedo
+    para esquerda. Caso queira selecionar restaurantes, arraste o dedo para a direita. Se você quiser que eu repita todas as informações,
+        pressione o seu dedo na tela para tal ação.</string>
+    <string name="LojasActivity_explicando_serviços">Você está selecionando serviços.
+    Se você deseja ver estabelecimentos relacionadas a isso, clique duas vezes na tela. Caso queira selecionar restaurantes, arraste o dedo
+    para esquerda. Caso queira selecionar supermercados, arraste o dedo para a direita. Se você quiser que eu repita todas as informações, pressione o
+    seu dedo na tela para tal ação.</string>
+
 </resources>
