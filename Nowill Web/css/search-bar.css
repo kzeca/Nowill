@@ -1,0 +1,36 @@
+.search-bar {
+  height: 120px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar .container {
+  height: 30px;
+  width: 75%;
+
+  border-radius: 5px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  background-color: #fff;
+}
+
+.search-bar .container input {
+  width: 85%;
+  height: 100%;
+
+  border: none;
+  border-radius: 5px;
+
+  outline: none;
+
+  background-color: #fff;
+}
+
+.search-bar .container input::placeholder {
+  color: #c1c1c1;
+}
