@@ -1,15 +1,16 @@
 package com.fmm.nowillmobile;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Locale;
 
 public class ResultLojasActivity extends Activity implements View.OnTouchListener {
 
@@ -42,10 +45,33 @@ public class ResultLojasActivity extends Activity implements View.OnTouchListene
         base = getIntent().getStringExtra("LOJAS");
         setAnimation();
         setObjects();
+        setVoice();
         gestureDetector = new GestureDetector(this, new GestureListener());
     }
 
+    private void setVoice() {
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i == textToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.getDefault());
+                    if(result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                        Log.e("TTS", "Language not supported");
+                    }
+                }else{
+                    Log.e("TTS", "Initialization Failed");
+                }
+                textToSpeech.setSpeechRate(sharedPreferences.getFloat("voz_speed", 0.8f));
+                textToSpeech.setPitch(sharedPreferences.getFloat("voz_pitch", 1));
+                textToSpeech.speak( getResources().getString(R.string.DadosActivity_intro),
+                        TextToSpeech.QUEUE_FLUSH, null);
+            }
+        });
+    }
+
     private void setObjects() {
+        sharedPreferences = getApplicationContext().getSharedPreferences("MyUserSharedPreferences", Context.MODE_PRIVATE);
         txtTipo = findViewById(R.id.activity_result_lojas_tv_tipo);
         txtNome = findViewById(R.id.activity_result_lojas_tv_nome);
         txtAvaliacao = findViewById(R.id.activity_result_lojas_tv_avaliacao);
@@ -144,7 +170,7 @@ public class ResultLojasActivity extends Activity implements View.OnTouchListene
             Intent intent;
             switch (optionLojas){
                 case 0:
-                    intent = new Intent(ResultLojasActivity.this, EstabelecimentoActivity.class);
+                    intent = new Intent(ResultLojasActivity.this, RestauranteActivity.class);
                     intent.putExtra("RESTAURANTE", "0");
                     startActivity(intent);
                     finish();

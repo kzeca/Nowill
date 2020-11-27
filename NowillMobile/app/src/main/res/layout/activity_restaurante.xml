@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestauranteActivity"
+    android:background="@drawable/gradient_list"
+    android:id="@+id/activity_restaurante_layout"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#0339A6"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/picanhamania"
+            android:id="@+id/activity_restaurante_img"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/quicksand_medium"
+            android:textSize="15sp"
+            android:text="PICANHA MANIA"
+            android:textColor="#f2f2f2"
+            android:id="@+id/activity_restaurante_tv_nome"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/quicksand_light"
+            android:text="PICANHA MANIA"
+            android:textColor="#f2f2f2"
+            android:textSize="9sp"
+            android:id="@+id/activity_restaurante_tv_endereco"/>
+
+        <FrameLayout
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="30dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_star_black_24dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#f2f2f2"
+                android:text="4.5"
+                android:fontFamily="@font/quicksand_bold"
+                android:textSize="40sp"
+                android:gravity="center"/>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/selectborder"
+        android:text="ENTRADAS"
+        android:textColor="#f2f2f2"
+        android:textSize="30sp"
+        android:fontFamily="@font/quicksand_medium"
+        android:id="@+id/activity_restaurante_tv_entradas"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="GUARNIÇÕES"
+        android:textColor="#f2f2f2"
+        android:textSize="30sp"
+        android:id="@+id/activity_restaurante_tv_guarnicoes"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="PRINCIPAIS"
+        android:textColor="#f2f2f2"
+        android:textSize="30sp"
+        android:id="@+id/activity_restaurante_tv_principais"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="BEBIDAS"
+        android:textColor="#f2f2f2"
+        android:textSize="30sp"
+        android:id="@+id/activity_restaurante_tv_bebidas"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/quicksand_medium"
+        android:text="SOBREMESAS"
+        android:textColor="#f2f2f2"
+        android:textSize="30sp"
+        android:id="@+id/activity_restaurante_tv_sobremesas"/>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/activity_restaurante_img_telefone"
+        android:src="@drawable/ic_call_black_24dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_keyboard_arrow_down"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="26sp"
+        android:fontFamily="@font/quicksand_light"
+        android:textColor="#f2f2f2"
+        android:text="VOLTAR"
+        android:layout_gravity="center_horizontal"
+
+        />
+
+
+</LinearLayout>

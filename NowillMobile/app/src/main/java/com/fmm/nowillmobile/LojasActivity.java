@@ -114,7 +114,7 @@ public class LojasActivity extends Activity implements View.OnTouchListener {
                 float valueY = y2 - y1;
 
                 if(Math.abs(valueX) > MIN_DISTANCE){
-
+                    textToSpeech.stop();
                     // Detect left to right swipe
                     if(x2 > x1){
                         switch (optionClasse){
@@ -138,16 +138,22 @@ public class LojasActivity extends Activity implements View.OnTouchListener {
                         // Detect rigth to left swipe
                         switch (optionClasse){
                             case 2:
+                                textToSpeech.speak( getResources().getString(R.string.LojasActivity_explicando_restaurantes),
+                                        TextToSpeech.QUEUE_FLUSH, null);
                                 optionClasse -= 2;
                                 txtClasse.setText("RESTAURANTES");
                                 imgClasse.setImageResource(R.drawable.restaurantes);
                                 break;
                             case 1:
+                                textToSpeech.speak( getResources().getString(R.string.LojasActivity_explicando_serviços),
+                                        TextToSpeech.QUEUE_FLUSH, null);
                                 optionClasse++;
                                 txtClasse.setText("SERVIÇOS");
                                 imgClasse.setImageResource(R.drawable.servicos);
                                 break;
                             case 0:
+                                textToSpeech.speak( getResources().getString(R.string.LojasActivity_explicando_supermercados),
+                                        TextToSpeech.QUEUE_FLUSH, null);
                                 optionClasse++;
                                 txtClasse.setText("SUPERMERCADOS");
                                 imgClasse.setImageResource(R.drawable.supermercados);
@@ -183,7 +189,6 @@ public class LojasActivity extends Activity implements View.OnTouchListener {
             Intent intent;
             switch (optionClasse){
                 case 0:
-                    Toast.makeText(getApplicationContext(), "RESTAURANTES", Toast.LENGTH_SHORT).show();
                     intent = new Intent(LojasActivity.this, ResultLojasActivity.class);
                     intent.putExtra("LOJAS", "restaurantes");
                     startActivity(intent);
