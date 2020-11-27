@@ -3,10 +3,7 @@ package com.fmm.nowillmobile;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
+
 
 import android.app.Activity;
 import android.content.Context;
@@ -183,9 +180,14 @@ public class LojasActivity extends Activity implements View.OnTouchListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             textToSpeech.stop();
+            Intent intent;
             switch (optionClasse){
                 case 0:
                     Toast.makeText(getApplicationContext(), "RESTAURANTES", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(LojasActivity.this, ResultLojasActivity.class);
+                    intent.putExtra("LOJAS", "restaurantes");
+                    startActivity(intent);
+                    finish();
                     break;
                 case 1:
                     Toast.makeText(getApplicationContext(), "SUPERMERCADOS", Toast.LENGTH_SHORT).show();

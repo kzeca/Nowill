@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LojasActivity"></activity>
+        <activity android:name=".EstabelecimentoActivity"></activity>
+        <activity android:name=".ResultLojasActivity" />
+        <activity android:name=".LojasActivity" />
         <activity
             android:name=".DialogEnterActivity"
             android:configChanges="orientation"
